@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
 import Header from '../../components/Header';
+import MessageForm from '../../components/MessageForm';
+import MessageSearch from '../../components/MessageSearch';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +23,8 @@ class App extends Component {
       <div id="app">
         My App
         <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
+        <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
+        <MessageSearch />
       </div>
     );
   }
