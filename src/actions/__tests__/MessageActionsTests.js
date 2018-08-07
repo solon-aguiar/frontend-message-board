@@ -8,7 +8,8 @@ import {
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
-  MESSAGE_CREATION_ERROR
+  MESSAGE_CREATION_ERROR,
+  MESSAGE_CREATED
 } from '../../constants/ActionTypes';
 import * as actions from '../../actions/MessageActions'
 
@@ -75,11 +76,12 @@ describe('MessageActions', () => {
   });
 
   describe('createMessages', () => {
-    it('dispatches a CREATING_MESSAGE event', () => {
+    it('dispatches a CREATING_MESSAGE and MESSAGE_CREATED on success', () => {
       fetch.mockResponse("{}");
 
       const expectedActions = [
-        { type: CREATING_MESSAGE }
+        { type: CREATING_MESSAGE },
+         { type: MESSAGE_CREATED}
       ];
       const store = mockStore({})
 

@@ -7,7 +7,8 @@ import {
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
-  MESSAGE_CREATION_ERROR
+  MESSAGE_CREATION_ERROR,
+  MESSAGE_CREATED
 } from '../constants/ActionTypes';
 
 function listingMessages() {
@@ -51,6 +52,12 @@ function creationError(err) {
   };
 }
 
+function messageCreated() {
+  return {
+    type: MESSAGE_CREATED
+  };
+}
+
 function listMessages() {
   return dispatch => {
     dispatch(listingMessages());
@@ -67,7 +74,7 @@ function createMessage(content, color) {
     dispatch(creatingMessage());
 
     return Messages.create(content, color)
-      .then(response => response.json())
+      .then(response => dispatch(messageCreated()))
       .catch(err => dispatch(creationError(err)));
   }
 }
