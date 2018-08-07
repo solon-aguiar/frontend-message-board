@@ -1,14 +1,14 @@
 'use strict';
 
-import MessageService from '../../MessageService';
+import Messages from '../../Messages';
 
-describe('MessageService', () => {
+describe('Messages', () => {
   const mockResponse = 'my-fake-response';
 
   describe('get', () => {
     it('calls the HttpService with a search query', () => {
       const fetchMock = jest.fn().mockReturnValue(mockResponse);
-      const subject = new MessageService(fetchMock);
+      const subject = new Messages(fetchMock);
 
       const messages = subject.get('my-query-string', 'blue');
       expect(messages).toEqual(mockResponse);
@@ -20,7 +20,7 @@ describe('MessageService', () => {
   describe('create', () => {
     it('uses the HttpService', () => {
       const fetchMock = jest.fn().mockReturnValue(mockResponse);
-      const subject = new MessageService(fetchMock);
+      const subject = new Messages(fetchMock);
 
       const messages = subject.create('content', 'blue');
       expect(messages).toEqual(mockResponse);

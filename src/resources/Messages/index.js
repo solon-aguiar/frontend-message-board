@@ -1,8 +1,8 @@
 'use strict';
 
-import HttpService from '../HttpService';
+import HttpService from '../../services/HttpService';
 
-export default class MessageService extends HttpService {
+export default class Messages extends HttpService {
   constructor(fetch) {
     super(fetch, '');
     this.path = '/messages';
