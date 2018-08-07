@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta content="IE=edge" http-equiv="x-ua-compatible">
+  <title>Message board</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+</head>
+<body>
+<div id="app">
+    <main class="cc0img9">
+      <div class="cgmxdsh">
+        <header class="c1pr40a">
+          <div class="cynqhgr">
+            <h1 class="c17defmp">Message board</h1>
+            <!-- This loader shows when there is network requests in progress for anything on the page -->
+            <span role="progressbar" class="c1g8hd9e c1sg2lsz">
+              <div class="c183ltat" style="animation-delay: -320ms; background: black;"></div>
+              <div class="c183ltat" style="animation-delay: -160ms; background: black;"></div>
+              <div class="c183ltat" style="background: black;"></div>
+            </span>
+          </div>
+          <p class="cp6shng">A place to post and read messages.</p>
+        </header>
+        <form class="c1pr40a">
+          <fieldset class="c6xliwt">
+            <legend class="c1rvp5fh">New message</legend>
+            <p class="c1ouhqwa">Add a message and optionally pick a color.</p>
+            <div class="c1u3f0g5">
+              <div class="cz1obge">
+                <!-- Error message is shown if user leaves input without filling it in. Use class .touched -->
+                <div class="error touched">
+                  <label class="c1ug13ud" for="message">Message</label>
+                  <input id="message" class="cydik8e" value=""/>
+                  <div class="c11hehzj" role="alert">A message is required</div>
+                </div>
+                <div>
+                  <label class="c1ug13ud" for="color">Color</label>
+                  <select id="color" class="cytasr3">
+                    <option>Choose a color...</option>
+                    <option value="#2795D9">Blue</option>
+                    <option value="#672d93">Purple</option>
+                    <option value="linear-gradient(to right, #e6e600, #f7941d 17%, #fff100 34%, #00a650 51%, #0054a5 68%, #672d93 85%, #672d93)">Rainbow</option>
+                  </select>
+                </div>
+              </div>
+              <div class="c7vrlqv">
+                <!-- button is disabled if message is empty or request is in progress -->
+                <button class="c13ogcrc" disabled type="submit">
+                  <!-- When request is in progress: disable button, show loader, opacity: 0 the text  -->
+                  <span role="progressbar" class="c161wjul c1sg2lsz">
+                    <div class="c183ltat" style="animation-delay: -320ms;"></div>
+                    <div class="c183ltat" style="animation-delay: -160ms;"></div>
+                    <div class="c183ltat"></div>
+                  </span>
+                  <span style="opacity: 0;">Post message</span>
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <section>
+          <header class="c1pr40a">
+            <div class="c12q1r7z">
+              <h2 class="c17zq7b5">Messages</h2>
+              <p>
+                <span class="ca2ougy">There are </span>
+                <!-- Count of visible messages -->
+                <span class="c1lerdlx">5</span>
+                <span class="ca2ougy">messages showing</span>
+              </p>
+              <!-- This loader shows when there is a get request for messages in progress -->
+              <span role="progressbar" class="c1g8hd9e c1sg2lsz">
+                <div class="c183ltat" style="animation-delay: -320ms; background: black;"></div>
+                <div class="c183ltat" style="animation-delay: -160ms; background: black;"></div>
+                <div class="c183ltat" style="background: black;"></div>
+              </span>
+            </div>
+            <div class="c7gtt9t">
+              <div class="c1w33pjg">
+                <label class="c1ug13ud" for="id-50854520">Search</label>
+                <div class="c6v0e9l">
+                  <input type="search" class="cshm1e9" id="id-50854520" aria-controls="results" value=""/>
+                  <!-- Loader shows when query string is present and is loading -->
+                  <span role="progressbar" class="c1gyy91j c1sg2lsz">
+                    <div class="c183ltat" style="animation-delay: -320ms;"></div>
+                    <div class="c183ltat" style="animation-delay: -160ms;"></div>
+                    <div class="c183ltat"></div>
+                  </span>
+                </div>
+              </div>
+              <div class="c1e30x2x">
+                <label class="c1ug13ud" for="color-filter">Filter</label>
+                <select class="cytasr3" aria-controls="results" id="color-filter">
+                  <option value="">All colors</option>
+                  <option value="#2795D9">Blue</option>
+                  <option value="#672d93">Purple</option>
+                  <option value="linear-gradient(to right, #e6e600, #f7941d 17%, #fff100 34%, #00a650 51%, #0054a5 68%, #672d93 85%, #672d93)">Rainbow</option>
+                </select>
+              </div>
+            </div>
+          </header>
+          <ul class="ccqw98a" aria-live="polite" async="" id="results" role="region">
+            <li class="cvvv1yb" style="background: rgb(39, 149, 217);">It always seems impossible until it is done.</li>
+            <li class="cvvv1yb" style="background: rgb(103, 45, 147);">Positive thinking will let you do everything better than negative thinking will.</li>
+            <li class="cvvv1yb">Without darkness there can be no light.</li>
+            <li class="cvvv1yb" style="background: linear-gradient(to right, rgb(230, 230, 0), rgb(247, 148, 29) 17%, rgb(255, 241, 0) 34%, rgb(0, 166, 80) 51%, rgb(0, 84, 165) 68%, rgb(103, 45, 147) 85%, rgb(103, 45, 147));">It takes sunshine and rain to make a rainbow.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <footer role="contentinfo" class="c1tr6g77">
+      <!-- Don't forget to sign your name :) -->
+      <p>Made by {you}</p>
+    </footer>
+  </div>
+  </body>
+</html>
