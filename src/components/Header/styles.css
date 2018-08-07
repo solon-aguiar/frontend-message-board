@@ -1,0 +1,107 @@
+.c1pr40a {
+  margin-bottom: 1.6rem;
+}
+
+@media screen and (min-width: 32em) {
+  .c1pr40a {
+    margin-bottom: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .c1pr40a {
+    margin-bottom: 2rem;
+  }
+}
+
+.cynqhgr {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c17defmp {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.2rem;
+}
+
+@media screen and (min-width: 32em) {
+  .c17defmp {
+    font-size: calc(2.5rem + 0.625 * (100vw - 32rem) / 28);
+    line-height: calc(3.2rem + 0.7999999999999998 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .c17defmp {
+    font-size: 3.125rem;
+    line-height: 4rem;
+  }
+}
+
+.c1g8hd9e {
+  margin-left: 0.8rem;
+}
+
+@media screen and (min-width: 32em) {
+  .c1g8hd9e {
+    margin-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .c1g8hd9e {
+    margin-left: 1rem;
+  }
+}
+
+.c1sg2lsz {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c183ltat {
+  width: 0.4em;
+  height: 0.4em;
+  margin-right: 0.1em;
+  background-color: #4286f4;
+  border-radius: 50%;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.c183ltat:last-child {
+  margin-right: 0;
+}
+
+.cp6shng {
+  font-size: 1.2000000000000002rem;
+  line-height: 1.6rem;
+  max-width: 40em;
+}
+
+@media screen and (min-width: 32em) {
+  .cp6shng {
+    font-size: calc(1.2000000000000002rem + 0.2999999999999998 * (100vw - 32rem) / 28);
+    line-height: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .cp6shng {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+.cp6shng * {
+  font-size: inherit;
+}
