@@ -4,52 +4,56 @@ import HttpService from '../../HttpService';
 
 describe('HttpService', () => {
   afterEach(() => {
-    jest.resetAllMocks();
+    fetch.resetMocks();
   });
 
-  const mockResponse = 'my-response';
+  const mockResponse = '{my-response: true}';
 
   describe('get', () => {
     it('calls fetch with the combined URL', () => {
-      const fetchMock = jest.fn().mockReturnValue(mockResponse);
+      fetch.mockResponse(mockResponse);
 
-      const subject = new HttpService(fetchMock, 'my-url');
+      const subject = new HttpService('my-url');
 
-      const response = subject.get('/messages', 'q=true');
+      subject.get('/messages', 'q=true').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
 
-      expect(response).toEqual(mockResponse);
-      expect(fetchMock.mock.calls.length).toEqual(1);
-      expect(fetchMock.mock.calls[0][0]).toEqual(`my-url/messages?q=true`);
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`my-url/messages?q=true`);
     });
 
     it('ignores queryParameters in the url if not present', () => {
-      const fetchMock = jest.fn().mockReturnValue(mockResponse);
+      fetch.mockResponse(mockResponse);
 
-      const subject = new HttpService(fetchMock, 'my-url');
+      const subject = new HttpService('my-url');
 
-      const response = subject.get('/messages');
+      subject.get('/messages').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
 
-      expect(response).toEqual(mockResponse);
-      expect(fetchMock.mock.calls.length).toEqual(1);
-      expect(fetchMock.mock.calls[0][0]).toEqual('my-url/messages');
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual('my-url/messages');
     })
   });
 
   describe('post', () => {
     it('adds headers, body and method to the fetch request', () => {
-      const fetchMock = jest.fn().mockReturnValue(mockResponse);;
-      const subject = new HttpService(fetchMock, 'my-url');
+      fetch.mockResponse(mockResponse);
+
+      const subject = new HttpService('my-url');
       const body = {
         content: 'batman',
         color: 'gray'
       };
 
-      const response = subject.post('/messages', body);
+      subject.post('/messages', body).then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
 
-      expect(response).toEqual(mockResponse);
-      expect(fetchMock.mock.calls.length).toEqual(1);
-      expect(fetchMock.mock.calls[0][0]).toEqual(`my-url/messages`);
-      expect(fetchMock.mock.calls[0][1]).toEqual({
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`my-url/messages`);
+      expect(fetch.mock.calls[0][1]).toEqual({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: '{"content":"batman","color":"gray"}' 

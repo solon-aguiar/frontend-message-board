@@ -2,9 +2,9 @@
 
 import HttpService from '../../services/HttpService';
 
-export default class Messages extends HttpService {
-  constructor(fetch) {
-    super(fetch, '');
+class Messages extends HttpService {
+  constructor() {
+    super('');
     this.path = '/messages';
   }
 
@@ -19,3 +19,5 @@ export default class Messages extends HttpService {
     });
   }
 }
+
+export default new Messages();

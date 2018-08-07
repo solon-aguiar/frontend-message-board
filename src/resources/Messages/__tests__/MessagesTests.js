@@ -3,30 +3,36 @@
 import Messages from '../../Messages';
 
 describe('Messages', () => {
-  const mockResponse = 'my-fake-response';
+  afterEach(() => {
+    fetch.resetMocks();
+  });
+
+  const mockResponse = '{my-response: true}';
 
   describe('get', () => {
     it('calls the HttpService with a search query', () => {
-      const fetchMock = jest.fn().mockReturnValue(mockResponse);
-      const subject = new Messages(fetchMock);
+      fetch.mockResponse(mockResponse);
 
-      const messages = subject.get('my-query-string', 'blue');
-      expect(messages).toEqual(mockResponse);
-      expect(fetchMock.mock.calls.length).toEqual(1);
-      expect(fetchMock.mock.calls[0][0]).toEqual(`/messages?_sort=id&_order=desc&q=my-query-string&color=blue`);
+      Messages.get('my-query-string', 'blue').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+      
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`/messages?_sort=id&_order=desc&q=my-query-string&color=blue`);
     });
   });
 
   describe('create', () => {
     it('uses the HttpService', () => {
-      const fetchMock = jest.fn().mockReturnValue(mockResponse);
-      const subject = new Messages(fetchMock);
+      fetch.mockResponse(mockResponse);
 
-      const messages = subject.create('content', 'blue');
-      expect(messages).toEqual(mockResponse);
-      expect(fetchMock.mock.calls.length).toEqual(1);
-      expect(fetchMock.mock.calls[0][0]).toEqual(`/messages`);
-      expect(fetchMock.mock.calls[0][1]).toEqual({
+      Messages.create('content', 'blue').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+      
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`/messages`);
+      expect(fetch.mock.calls[0][1]).toEqual({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: '{"content":"content","color":"blue"}' 

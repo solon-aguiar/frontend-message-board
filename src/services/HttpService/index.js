@@ -1,18 +1,17 @@
 'use strict';
 
 export default class HttpService {
-  constructor(fetch, baseUrl) {
+  constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    this.fetch = fetch;
   }
 
   get(path, queryParams) {
     const fullUrl = queryParams ? `${this.baseUrl}${path}?${queryParams}` : `${this.baseUrl}${path}`;
-    return this.fetch(fullUrl);
+    return fetch(fullUrl);
   }
 
   post(path, body) {
-    return this.fetch(`${this.baseUrl}${path}`, {
+    return fetch(`${this.baseUrl}${path}`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
