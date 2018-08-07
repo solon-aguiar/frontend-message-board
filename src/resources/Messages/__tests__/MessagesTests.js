@@ -18,7 +18,7 @@ describe('Messages', () => {
       });
       
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`/messages`);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages`);
     });
 
     it('calls the HttpService with a search query if specified content', () => {
@@ -29,7 +29,7 @@ describe('Messages', () => {
       });
       
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`/messages?_sort=id&_order=desc&q=my-query-string`);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&q=my-query-string`);
     });
 
     it('calls the HttpService with a full search query', () => {
@@ -40,7 +40,7 @@ describe('Messages', () => {
       });
       
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`/messages?_sort=id&_order=desc&q=my-query-string&color=blue`);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&q=my-query-string&color=blue`);
     });
   });
 
@@ -53,7 +53,7 @@ describe('Messages', () => {
       });
       
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`/messages`);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages`);
       expect(fetch.mock.calls[0][1]).toEqual({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -5,7 +5,7 @@ import HttpService from '../../services/HttpService';
 class Messages {
   constructor() {
     this.service = new HttpService("");
-    this.path = '/messages';
+    this.path = '/api/messages';
   }
 
   get(searchText = undefined, color = undefined) {

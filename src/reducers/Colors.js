@@ -8,7 +8,7 @@ const initialState = fromJS({
   'colors': []
 });
 
-export default function messages(state = initialState, action) {
+export default function colors(state = initialState, action) {
   const isError = action.error;
 
   switch (action.type) {

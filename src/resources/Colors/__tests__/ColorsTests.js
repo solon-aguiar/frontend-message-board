@@ -14,7 +14,7 @@ describe('Colors', () => {
       );
 
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual('/colors');
+      expect(fetch.mock.calls[0][0]).toEqual('/api/colors');
     });
   });
 

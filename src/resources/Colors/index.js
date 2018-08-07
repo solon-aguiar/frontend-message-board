@@ -5,7 +5,7 @@ import HttpService from '../../services/HttpService';
 class Colors {
   constructor(fetch) {
     this.service = new HttpService('');
-    this.path = '/colors';
+    this.path = '/api/colors';
   }
 
   get() {
