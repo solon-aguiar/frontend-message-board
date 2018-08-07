@@ -21,6 +21,18 @@ describe('HttpService', () => {
       expect(fetchMock.mock.calls.length).toEqual(1);
       expect(fetchMock.mock.calls[0][0]).toEqual(`my-url/messages?q=true`);
     });
+
+    it('ignores queryParameters in the url if not present', () => {
+      const fetchMock = jest.fn().mockReturnValue(mockResponse);
+
+      const subject = new HttpService(fetchMock, 'my-url');
+
+      const response = subject.get('/messages');
+
+      expect(response).toEqual(mockResponse);
+      expect(fetchMock.mock.calls.length).toEqual(1);
+      expect(fetchMock.mock.calls[0][0]).toEqual('my-url/messages');
+    })
   });
 
   describe('post', () => {
