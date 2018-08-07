@@ -2,18 +2,26 @@
 
 import HttpService from '../../services/HttpService';
 
-class Messages extends HttpService {
+class Messages {
   constructor() {
-    super('');
+    this.service = new HttpService("");
     this.path = '/messages';
   }
 
-  get(searchText, color) {
-    return super.get(this.path, `_sort=id&_order=desc&q=${searchText}&color=${color}`);
+  get(searchText = undefined, color = undefined) {
+    let queryString = undefined;
+    if (searchText) {
+      queryString = `_sort=id&_order=desc&q=${searchText}`;
+    }
+    if (color) {
+      queryString += `&color=${color}`;
+    }
+
+    return this.service.get(this.path, queryString);
   }
 
   create(content, color) {
-    return super.post(this.path, {
+    return this.service.post(this.path, {
       content,
       color
     });

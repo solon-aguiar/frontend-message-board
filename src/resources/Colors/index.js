@@ -2,14 +2,14 @@
 
 import HttpService from '../../services/HttpService';
 
-class Colors extends HttpService {
+class Colors {
   constructor(fetch) {
-    super('');
+    this.service = new HttpService('');
     this.path = '/colors';
   }
 
   get() {
-    return super.get(this.path);
+    return this.service.get(this.path);
   }
 }
 

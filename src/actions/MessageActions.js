@@ -2,16 +2,23 @@
 
 import Messages from '../resources/Messages';
 import {
-  FETCHING_MESSAGES,
+  LISTING_MESSAGES,
+  SEARCHING_MESSAGES,
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
   MESSAGE_CREATION_ERROR
 } from '../constants/ActionTypes';
 
-function loadingMessages() {
+function listingMessages() {
   return {
-    type: FETCHING_MESSAGES
+    type: LISTING_MESSAGES
+  };
+}
+
+function searchingMessages() {
+  return {
+    type: SEARCHING_MESSAGES
   };
 }
 
@@ -44,11 +51,11 @@ function creationError(err) {
   };
 }
 
-function getMessages(searchText, color) {
+function listMessages() {
   return dispatch => {
-    dispatch(loadingMessages());
+    dispatch(listingMessages());
 
-    return Messages.get(searchText, color)
+    return Messages.get()
       .then(response => response.json())
       .then(body => dispatch(loadedMessages(body)))
       .catch(err => dispatch(loadError(err)));
@@ -65,4 +72,15 @@ function createMessage(content, color) {
   }
 }
 
-export {getMessages, createMessage};
+function searchMessages(content, color) {
+  return dispatch => {
+    dispatch(searchingMessages());
+
+    return Messages.get(content, color)
+      .then(response => response.json())
+      .then(body => dispatch(loadedMessages(body)))
+      .catch(err => dispatch(loadError(err)));
+  };
+}
+
+export {listMessages, createMessage, searchMessages};
