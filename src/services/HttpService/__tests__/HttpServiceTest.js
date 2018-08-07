@@ -7,13 +7,17 @@ describe('HttpService', () => {
     jest.resetAllMocks();
   });
 
+  const mockResponse = 'my-response';
+
   describe('get', () => {
     it('calls fetch with the combined URL', () => {
-      const fetchMock = jest.fn();
+      const fetchMock = jest.fn().mockReturnValue(mockResponse);
+
       const subject = new HttpService(fetchMock, 'my-url');
 
-      subject.get('/messages', 'q=true');
+      const response = subject.get('/messages', 'q=true');
 
+      expect(response).toEqual(mockResponse);
       expect(fetchMock.mock.calls.length).toEqual(1);
       expect(fetchMock.mock.calls[0][0]).toEqual(`my-url/messages?q=true`);
     });
@@ -21,15 +25,16 @@ describe('HttpService', () => {
 
   describe('post', () => {
     it('adds headers, body and method to the fetch request', () => {
-      const fetchMock = jest.fn();
+      const fetchMock = jest.fn().mockReturnValue(mockResponse);;
       const subject = new HttpService(fetchMock, 'my-url');
       const body = {
         content: 'batman',
         color: 'gray'
       };
 
-      subject.post('/messages', body);
+      const response = subject.post('/messages', body);
 
+      expect(response).toEqual(mockResponse);
       expect(fetchMock.mock.calls.length).toEqual(1);
       expect(fetchMock.mock.calls[0][0]).toEqual(`my-url/messages`);
       expect(fetchMock.mock.calls[0][1]).toEqual({
