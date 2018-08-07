@@ -1,11 +1,23 @@
 'use strict';
 
 import Messages from '../resources/Messages';
-import { FETCHING_MESSAGES, MESSAGES_LOADED, MESSAGES_LOAD_ERROR } from '../constants/ActionTypes';
+import {
+  FETCHING_MESSAGES,
+  MESSAGES_LOADED,
+  MESSAGES_LOAD_ERROR,
+  CREATING_MESSAGE,
+  MESSAGE_CREATION_ERROR
+} from '../constants/ActionTypes';
 
 function loadingMessages() {
   return {
     type: FETCHING_MESSAGES
+  };
+}
+
+function creatingMessage() {
+  return {
+    type: CREATING_MESSAGE
   };
 }
 
@@ -24,6 +36,14 @@ function loadError(err) {
   };
 }
 
+function creationError(err) {
+  return {
+    type: MESSAGE_CREATION_ERROR,
+    payload: err,
+    error: true
+  };
+}
+
 function getMessages(searchText, color) {
   return dispatch => {
     dispatch(loadingMessages());
@@ -35,4 +55,14 @@ function getMessages(searchText, color) {
   };
 }
 
-export {getMessages};
+function createMessage(content, color) {
+  return dispatch => {
+    dispatch(creatingMessage());
+
+    return Messages.create(content, color)
+      .then(response => response.json())
+      .catch(err => dispatch(creationError(err)));
+  }
+}
+
+export {getMessages, createMessage};
