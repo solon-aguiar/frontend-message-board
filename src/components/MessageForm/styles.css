@@ -452,37 +452,3 @@
   color: #e0e0e0;
 }
 
-.c161wjul {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  color: #fff;
-}
-
-.c1sg2lsz {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c183ltat {
-  width: 0.4em;
-  height: 0.4em;
-  margin-right: 0.1em;
-  background-color: #4286f4;
-  border-radius: 50%;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.c183ltat:last-child {
-  margin-right: 0;
-}

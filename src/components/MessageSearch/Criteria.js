@@ -1,5 +1,6 @@
 import './styles.css';
 import React, { Component } from 'react';
+import LoadingIndicator from '../LoadingIndicator';
 
 export default class Criteria extends Component {
   constructor(props) {
@@ -16,22 +17,16 @@ export default class Criteria extends Component {
             <span className="c1lerdlx">5</span>
             <span className="ca2ougy">messages showing</span>
           </p>
-          <span role="progressbar" className="c1g8hd9e c1sg2lsz">
-             <div className="c183ltat" style={{animationDelay: "-320ms", background: "black"}}></div>
-             <div className="c183ltat" style={{animationDelay: "-160ms", background: "black"}}></div>
-             <div className="c183ltat" style={{background: "black"}}></div>
-          </span>
+
+          <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} />
         </div>
         <div className="c7gtt9t">
           <div className="c1w33pjg">
             <label className="c1ug13ud" htmlFor="id-50854520">Search</label>
             <div className="c6v0e9l">
               <input type="search" className="cshm1e9" id="id-50854520" aria-controls="results" value=""/>
-              <span role="progressbar" className="c1gyy91j c1sg2lsz">
-                <div className="c183ltat" style={{animationDelay: "-320ms"}} />
-                <div className="c183ltat" style={{animationDelay: "-160ms"}} />
-                <div className="c183ltat" />
-              </span>
+
+              <LoadingIndicator cssClass={"internal-loading-indicator-right"}/>
             </div>
           </div>
           <div className="c1e30x2x">

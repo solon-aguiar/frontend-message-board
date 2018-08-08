@@ -1,9 +1,15 @@
 import './styles.css';
 import React, { Component } from 'react';
+import LoadingIndicator from '../LoadingIndicator';
 
 export default class MessageForm extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      canSubmit: false,
+
+    }
   }
 
   render() {
@@ -30,12 +36,8 @@ export default class MessageForm extends Component {
               </div>
             </div>
             <div className="c7vrlqv">
-              <button className="c13ogcrc" disabled type="submit">
-                <span role="progressbar" className="c161wjul c1sg2lsz">
-                  <div className="c183ltat" style={{animationDelay: "-320ms"}}></div>
-                  <div className="c183ltat" style={{animationDelay: "-160ms"}}></div>
-                  <div className="c183ltat"></div>
-                </span>
+              <button className="c13ogcrc" disabled={!this.state.canSubmit} type="submit">
+                <LoadingIndicator cssClass={"internal-loading-indicator-center"} />
                 <span style={{opacity: 0}}>Post message</span>
               </button>
             </div>

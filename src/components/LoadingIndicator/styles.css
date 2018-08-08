@@ -1,0 +1,59 @@
+.blue-dot {
+  width: 0.4em;
+  height: 0.4em;
+  margin-right: 0.1em;
+  background-color: #4286f4;
+  border-radius: 50%;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.blue-dot:last-child {
+  margin-right: 0;
+}
+
+.internal-loading-indicator-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  color: #fff;
+}
+
+.internal-loading-indicator-right {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 1.2000000000000002rem;
+}
+
+.webkit-adjust {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.companion-loading-indicator {
+  margin-left: 0.8rem;
+}
+
+@media screen and (min-width: 32em) {
+  .companion-loading-indicator {
+    margin-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .companion-loading-indicator {
+    margin-left: 1rem;
+  }
+}
