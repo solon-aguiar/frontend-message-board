@@ -47,7 +47,7 @@ export default class Criteria extends Component {
           </div>
           <div className="c1e30x2x">
             <label className="c1ug13ud" htmlFor="color-filter">Filter</label>
-            <DropdownList options={colorsToDisplay} onChange={this.onOptionSelected} />
+            <DropdownList options={colorsToDisplay} onChange={this.onOptionSelected} selected={this.state.selectedOption}/>
           </div>
         </div>
       </header>

@@ -21,8 +21,8 @@ describe('DropdownList', () => {
 
   const onChange = jest.fn();
 
-  it('renders each option with the first one selected', () => {
-    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} />);
+  it('renders each option with the specified one selected', () => {
+    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} selected={'value1'}/>);
 
     expect(enzymeWrapper.find('select').hasClass('dropdown')).toBe(true);
     expect(enzymeWrapper.find('select').get(0).props.value).toEqual('value1');
@@ -32,14 +32,10 @@ describe('DropdownList', () => {
     expect(enzymeWrapper.find('option').get(1).props).toEqual({children: "Value 2", value: "value2"});
   });
 
-  it('changes the state and calls the callback on value selected', () => {
-    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} />);
-
-    expect(enzymeWrapper.state('value')).toEqual('value1');
+  it('triggers the callback on the value selected', () => {
+    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} selected={'value1'}/>);
 
     enzymeWrapper.find('select').get(0).props.onChange({target:{value:'value2'}});
-
     expect(onChange.mock.calls.length).toBe(1);
-    expect(enzymeWrapper.state('value')).toEqual('value2');
   });
 });

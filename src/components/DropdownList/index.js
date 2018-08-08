@@ -6,22 +6,18 @@ export default class DropdownList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: props.options[0].value
-    };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
     const value = event.target.value;
 
-    this.setState({value});
     this.props.onChange(value);
   }
 
   render() {
     return (
-      <select className="dropdown" value={this.state.value} onChange={this.handleChange}>
+      <select className="dropdown" value={this.props.selected} onChange={this.handleChange}>
         {this.props.options.map(op =>
           <option value={op.value} key={op.id}>{op.name}</option>
         )}
@@ -36,5 +32,6 @@ DropdownList.propsTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired
   })).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  selected: PropTypes.string.isRequired
 }

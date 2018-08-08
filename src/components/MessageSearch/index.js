@@ -11,7 +11,7 @@ export default class MessageSearch extends Component {
     return (
       <section>
         <Criteria colors={this.props.colors} />
-        <Results />
+        <Results messages={this.props.messages} />
       </section>
     );
   }

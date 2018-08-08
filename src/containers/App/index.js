@@ -25,7 +25,7 @@ class App extends Component {
           <div className="cgmxdsh">
             <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
             <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
-            <MessageSearch colors={colors.colors} />
+            <MessageSearch colors={colors.colors} messages={messages.messages} />
           </div>
         </main>
         <footer role="contentinfo" className="c1tr6g77">
