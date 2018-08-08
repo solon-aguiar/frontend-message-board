@@ -7,7 +7,7 @@ import Header from '../../Header';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Header', () => {
-  it('should render self and loading indicator when loading', () => {
+  it('renders with a loading indicator when loading', () => {
     const enzymeWrapper = shallow(<Header isLoading={true} />);
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
@@ -16,7 +16,7 @@ describe('Header', () => {
     expect(enzymeWrapper.find(LoadingIndicator).get(0).props).toEqual({background: true, cssClass: "companion-loading-indicator"});
   });
 
-  it('should render self without loading indicator when not loading', () => {
+  it('renders without loading indicator when not loading', () => {
     const enzymeWrapper = shallow(<Header isLoading={false} />);
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);

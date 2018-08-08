@@ -1,0 +1,30 @@
+.dropdown {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #707070;
+  width: 100%;
+}
+
+@media screen and (min-width: 32em) {
+  .dropdown {
+    padding-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-top: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+    padding-bottom: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .dropdown {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

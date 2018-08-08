@@ -1,13 +1,30 @@
 import './styles.css';
 import React, { Component } from 'react';
 import LoadingIndicator from '../LoadingIndicator';
+import DropdownList from '../DropdownList';
 
 export default class Criteria extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedOption: ''
+    }
+
+    this.onOptionSelected = this.onOptionSelected.bind(this);
+  }
+
+  onOptionSelected(option) {
+    console.log("cheguei aqui no outro", option);
+    this.setState({
+      selectedOption: option
+    });
   }
 
   render() {
+    const {colors} = this.props;
+    const colorsToDisplay = [{name: 'All colors', value: '', id:'fake-id'}].concat(colors);
+    
     return (
       <header className="c1pr40a">
         <div className="c12q1r7z">
@@ -25,18 +42,12 @@ export default class Criteria extends Component {
             <label className="c1ug13ud" htmlFor="id-50854520">Search</label>
             <div className="c6v0e9l">
               <input type="search" className="cshm1e9" id="id-50854520" aria-controls="results" value=""/>
-
               <LoadingIndicator cssClass={"internal-loading-indicator-right"}/>
             </div>
           </div>
           <div className="c1e30x2x">
             <label className="c1ug13ud" htmlFor="color-filter">Filter</label>
-            <select className="cytasr3" aria-controls="results" id="color-filter">
-              <option value="">All colors</option>
-              <option value="#2795D9">Blue</option>
-              <option value="#672d93">Purple</option>
-              <option value="linear-gradient(to right, #e6e600, #f7941d 17%, #fff100 34%, #00a650 51%, #0054a5 68%, #672d93 85%, #672d93)">Rainbow</option>
-            </select>
+            <DropdownList options={colorsToDisplay} onChange={this.onOptionSelected} />
           </div>
         </div>
       </header>

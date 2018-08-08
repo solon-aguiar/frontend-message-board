@@ -21,14 +21,14 @@ class App extends Component {
     const {colors, messages} = this.props;
     return (
       <div id="app">
-        <main class="cc0img9">
-          <div class="cgmxdsh">
+        <main className="cc0img9">
+          <div className="cgmxdsh">
             <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
             <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
-            <MessageSearch />
+            <MessageSearch colors={colors.colors} />
           </div>
         </main>
-        <footer role="contentinfo" class="c1tr6g77">
+        <footer role="contentinfo" className="c1tr6g77">
           <p>Made by Solon</p>
         </footer>
       </div>

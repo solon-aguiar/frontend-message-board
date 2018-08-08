@@ -2,13 +2,11 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import LoadingIndicator from '../../LoadingIndicator';
-//import setUpJsDom from '../../__tests-setup__';
 
-//setUpJsDom();
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('LoadingIndicator', () => {
-  it('should render self and subcomponents with default props', () => {
+  it('renders with subcomponents with default props', () => {
     const enzymeWrapper = shallow(<LoadingIndicator />);
 
     expect(enzymeWrapper.find('span').hasClass('internal-loading-indicator-center')).toBe(true);
@@ -19,7 +17,7 @@ describe('LoadingIndicator', () => {
     expect(enzymeWrapper.find('.blue-dot').get(2).props.style).toBe(undefined);
   });
 
-  it('should render with the specified cssClass and background', () => {
+  it('renders with the specified cssClass and background', () => {
     const enzymeWrapper = shallow(<LoadingIndicator background cssClass={'companion-loading-indicator'} />);
 
     expect(enzymeWrapper.find('span').hasClass('companion-loading-indicator')).toBe(true);

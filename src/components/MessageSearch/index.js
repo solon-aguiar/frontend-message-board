@@ -10,7 +10,7 @@ export default class MessageSearch extends Component {
   render() {
     return (
       <section>
-        <Criteria />
+        <Criteria colors={this.props.colors} />
         <Results />
       </section>
     );
