@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Header', () => {
   it('renders with a loading indicator when loading', () => {
-    const enzymeWrapper = shallow(<Header isLoading={true} />);
+    const enzymeWrapper = shallow(<Header isLoading />);
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
     expect(enzymeWrapper.find('h1').text()).toEqual("Message board");
@@ -21,6 +21,6 @@ describe('Header', () => {
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
     expect(enzymeWrapper.find('h1').text()).toBe("Message board");
-    expect(enzymeWrapper.find(LoadingIndicator).length).toBe(0);
+    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
   });
 });

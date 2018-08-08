@@ -2,6 +2,7 @@ import './styles.css';
 import React, { Component } from 'react';
 import LoadingIndicator from '../LoadingIndicator';
 import DropdownList from '../DropdownList';
+import ClinikoButton from '../ClinikoButton';
 
 export default class MessageForm extends Component {
   constructor(props) {
@@ -65,31 +66,26 @@ export default class MessageForm extends Component {
 
   render() {
     const {colors} = this.props;
-    const colorsToDisplay = [{name: 'Choose a color...', value: '', id:'fake-id'}].concat(colors);
+    const colorOptions = [{name: 'Choose a color...', value: '', id:'fake-id'}].concat(colors);
     
     return (
-      <div className="c1pr40a">
-        <fieldset className="c6xliwt">
-          <legend className="c1rvp5fh">New message</legend>
-          <p className="c1ouhqwa">Add a message and optionally pick a color.</p>
-          <div className="c1u3f0g5">
-            <div className="cz1obge">
-              <div className="error touched">
-                <label className="c1ug13ud" htmlFor="message">Message</label>
-                <input id="message" className="cydik8e" value={this.state.messageContent} onChange={this.handleMessageContentChange} onBlur={this.onBlur}/>
-                {this.state.hasError && <div className="c11hehzj" role="alert">A message is required</div>}
+      <div className="message-form">
+        <fieldset className="fields">
+          <legend className="legend">New message</legend>
+          <p className="toltip">Add a message and optionally pick a color.</p>
+          <div className="fields-container">
+            <div className="message-content-container">
+              <div className="message-content-field-container touched">
+                <label className="message-content-field-label" htmlFor="message">Message</label>
+                <input id="message" className="message-content" value={this.state.messageContent} onChange={this.handleMessageContentChange} onBlur={this.onBlur}/>
+                {this.state.hasError && <div className="error-message" role="alert">A message is required</div>}
               </div>
               <div>
-                <label className="c1ug13ud" htmlFor="color">Color</label>
-                <DropdownList options={colorsToDisplay} onChange={this.onColorSelected} selected={this.state.messageColor} />
+                <label className="message-content-field-label" htmlFor="color">Color</label>
+                <DropdownList options={colorOptions} onChange={this.onColorSelected} selected={this.state.messageColor} />
               </div>
             </div>
-            <div className="c7vrlqv">
-              <button className="c13ogcrc" disabled={!this.canSubmit()} type="submit" onClick={this.onSubmit}>
-                {this.props.isAddingMessage && <LoadingIndicator cssClass={"internal-loading-indicator-center"} /> }
-                <span style={{opacity: 10}}>Post message</span>
-              </button>
-            </div>
+            <ClinikoButton disabled={!this.canSubmit()} onClick={this.onSubmit} showLoadingIndicator={this.props.isAddingMessage} text={"Post Message"} />
           </div>
         </fieldset>
       </div>

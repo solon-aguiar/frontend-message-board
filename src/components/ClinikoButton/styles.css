@@ -1,0 +1,70 @@
+.message-content-submit {
+  margin-top: 1.6rem;
+}
+
+@media screen and (min-width: 60em) {
+  .message-content-submit {
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
+@media screen and (min-width: 32em) {
+  .message-content-submit {
+    margin-top: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .message-content-submit {
+    margin-top: 2rem;
+  }
+}
+
+.message-submit-button {
+  padding-top: 0.35200000000000004rem;
+  padding-bottom: 0.44800000000000006rem;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  border-radius: 4px;
+  background: #ee2b89;
+  box-shadow: none;
+  border: 1px solid #707070;
+  color: #fff;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+@media screen and (min-width: 32em) {
+  .message-submit-button {
+    padding-top: calc(0.35200000000000004rem + 0.08799999999999997 * (100vw - 32rem) / 28);
+    padding-bottom: calc(0.44800000000000006rem + 0.11199999999999999 * (100vw - 32rem) / 28);
+    padding-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .message-submit-button {
+    padding-top: 0.44rem;
+    padding-bottom: 0.56rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+.message-submit-button:disabled {
+  background: #494a4c;
+  color: #e0e0e0;
+}
