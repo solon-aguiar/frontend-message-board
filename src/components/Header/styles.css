@@ -1,72 +1,66 @@
-.c1pr40a {
+.header {
   margin-bottom: 1.6rem;
 }
 
 @media screen and (min-width: 32em) {
-  .c1pr40a {
+  .header {
     margin-bottom: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
   }
 }
 
 @media screen and (min-width: 60em) {
-  .c1pr40a {
+  .header {
     margin-bottom: 2rem;
   }
 }
 
-.cynqhgr {
+.header-title-container {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c17defmp {
+.header-title {
   font-weight: 700;
   font-size: 2.5rem;
   line-height: 3.2rem;
 }
 
 @media screen and (min-width: 32em) {
-  .c17defmp {
+  .header-title {
     font-size: calc(2.5rem + 0.625 * (100vw - 32rem) / 28);
     line-height: calc(3.2rem + 0.7999999999999998 * (100vw - 32rem) / 28);
   }
 }
 
 @media screen and (min-width: 60em) {
-  .c17defmp {
+  .header-title {
     font-size: 3.125rem;
     line-height: 4rem;
   }
 }
 
-@media screen and (min-width: 60em) {
-  .c1g8hd9e {
-    margin-left: 1rem;
-  }
-}
-
-.cp6shng {
+.header-info {
   font-size: 1.2000000000000002rem;
   line-height: 1.6rem;
   max-width: 40em;
 }
 
 @media screen and (min-width: 32em) {
-  .cp6shng {
+  .header-info {
     font-size: calc(1.2000000000000002rem + 0.2999999999999998 * (100vw - 32rem) / 28);
     line-height: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
   }
 }
 
 @media screen and (min-width: 60em) {
-  .cp6shng {
+  .header-info {
     font-size: 1.5rem;
     line-height: 2rem;
   }
 }
 
-.cp6shng * {
+.header-info * {
   font-size: inherit;
 }

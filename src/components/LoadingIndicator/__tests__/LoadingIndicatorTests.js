@@ -2,7 +2,7 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import LoadingIndicator from '../../LoadingIndicator';
-import setUpJsDom from '../../__tests-setup__';
+//import setUpJsDom from '../../__tests-setup__';
 
 //setUpJsDom();
 Enzyme.configure({ adapter: new Adapter() });
@@ -28,6 +28,6 @@ describe('LoadingIndicator', () => {
     expect(enzymeWrapper.find('.blue-dot').get(0).props.style).toEqual({animationDelay: '-320ms', background: "black"});
     expect(enzymeWrapper.find('.blue-dot').get(1).props.style).toEqual({animationDelay: '-160ms', background: "black"});
     expect(enzymeWrapper.find('.blue-dot').get(2).props.style).toEqual({background: "black"});
-  })
+  });
 
 });
