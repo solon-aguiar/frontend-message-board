@@ -77,6 +77,16 @@ describe('Criteria', () => {
     expect(onChange.mock.calls[0]).toEqual([inputMessage, ""]);
   });
 
+  it('triggers search on elements added', () => {
+    const inputMessage = 'new message content';
+
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching isAdding />);
+    enzymeWrapper.setProps({isAdding: false});
+
+    expect(onChange.mock.calls.length).toBe(1);
+    expect(onChange.mock.calls[0]).toEqual(["", ""]);
+  });
+
   it('searches with color and content', () => {
     const inputMessage = 'new message content';
     const newColor = 'rainbow';

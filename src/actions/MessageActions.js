@@ -2,7 +2,6 @@
 
 import Messages from '../resources/Messages';
 import {
-  LISTING_MESSAGES,
   SEARCHING_MESSAGES,
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
@@ -10,12 +9,6 @@ import {
   MESSAGE_CREATION_ERROR,
   MESSAGE_CREATED
 } from '../constants/ActionTypes';
-
-function listingMessages() {
-  return {
-    type: LISTING_MESSAGES
-  };
-}
 
 function searchingMessages() {
   return {
@@ -58,17 +51,6 @@ function messageCreated() {
   };
 }
 
-function listMessages() {
-  return dispatch => {
-    dispatch(listingMessages());
-
-    return Messages.get()
-      .then(response => response.json())
-      .then(body => dispatch(loadedMessages(body)))
-      .catch(err => dispatch(loadError(err)));
-  };
-}
-
 function createMessage(content, color) {
   return dispatch => {
     dispatch(creatingMessage());
@@ -90,4 +72,4 @@ function searchMessages(content, color) {
   };
 }
 
-export {listMessages, createMessage, searchMessages};
+export {createMessage, searchMessages};

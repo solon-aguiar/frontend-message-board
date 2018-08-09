@@ -14,7 +14,7 @@ export default function Search(props) {
           <span className="header-text-number">{props.messages.length}</span>
           {props.isSearching && <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} /> }
         </div>
-        <Criteria colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching}/>
+        <Criteria colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching} isAdding={props.isAdding} />
       </header>
       <PaginatedMessageList messages={props.messages} />
     </section>
@@ -33,5 +33,6 @@ Search.propsTypes = {
     id: PropTypes.number.isRequired
   })).isRequired,
   searchMessages: PropTypes.func.isRequired,
-  isSearching: PropTypes.bool.isRequired
+  isSearching: PropTypes.bool.isRequired,
+  isAdding: PropTypes.bool.isRequired
 };

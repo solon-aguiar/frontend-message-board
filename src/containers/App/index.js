@@ -15,7 +15,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.listColors();
-    this.props.listMessages();
+    this.props.searchMessages();
   }
 
   render() {
@@ -24,9 +24,9 @@ class App extends Component {
       <div id="app">
         <main className="main">
           <div className="container">
-            <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
-            <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
-            <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} />
+            <Header isLoading={colors.listing || messages.adding || messages.searching} />
+            <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
+            <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
           </div>
         </main>
         <footer role="contentinfo" className="footer">
@@ -46,7 +46,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    listMessages: () => dispatch(MessageActions.listMessages()),
     listColors: () => dispatch(ColorActions.listColors()),
     createMessage: (content, color) => dispatch(MessageActions.createMessage(content, color)),
     searchMessages: (content, color) => dispatch(MessageActions.searchMessages(content, color))

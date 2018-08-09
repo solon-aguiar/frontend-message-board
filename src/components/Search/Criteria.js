@@ -36,6 +36,9 @@ export default class Criteria extends Component {
     if (prevState.selectedColor != this.state.selectedColor || prevState.messageContent != this.state.messageContent) {
       this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
     }
+    if (!!prevProps.isAdding && !this.props.isAdding) {
+      this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
+    }
   }
 
   render() {
@@ -67,5 +70,6 @@ Criteria.propsTypes = {
     id: PropTypes.number.isRequired
   })).isRequired,
   onChange: PropTypes.func.isRequired,
-  isSearching: PropTypes.bool.isRequired
+  isSearching: PropTypes.bool.isRequired,
+  isAdding: PropTypes.bool.isRequired
 };

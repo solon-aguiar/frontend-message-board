@@ -1,7 +1,6 @@
 'use strict';
 
 import {
-  LISTING_MESSAGES,
   SEARCHING_MESSAGES,
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
@@ -13,7 +12,6 @@ import Immutable, { fromJS } from 'immutable';
 
 const initialState = fromJS({
   'searching': false,
-  'listing': false,
   'adding': false,
   'messages': []
 });
@@ -22,8 +20,6 @@ export default function messages(state = initialState, action) {
   const isError = action.error;
 
   switch (action.type) {
-    case LISTING_MESSAGES:
-      return state.set('listing', true);
     case SEARCHING_MESSAGES:
       return state.set('searching', true);
     case MESSAGES_LOADED:

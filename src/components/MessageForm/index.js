@@ -57,7 +57,6 @@ export default class MessageForm extends Component {
 
   onSubmit(event) {
     this.props.addMessage(this.state.messageContent, this.state.messageColor).then(() => {
-      this.props.listMessages();
       this.clearState();
     });
   }
@@ -102,6 +101,5 @@ MessageForm.propsTypes = {
     id: PropTypes.number.isRequired
   })).isRequired,
   addMessage: PropTypes.func.isRequired,
-  listMessages: PropTypes.func.isRequired,
   isAddingMessage: PropTypes.bool.isRequired
 };

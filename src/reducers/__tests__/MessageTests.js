@@ -2,7 +2,6 @@
 
 import reducer from '../../reducers/Messages';
 import {
-  LISTING_MESSAGES,
   SEARCHING_MESSAGES,
   MESSAGES_LOADED,
   MESSAGES_LOAD_ERROR,
@@ -17,17 +16,7 @@ describe('Messages reducer', () => {
 
   it('returns the initial state for undefined state', () => {
     expect(reducer(undefined, {})).toEqual(
-      Immutable.Map({"searching": false, "listing": false, "adding": false, "messages": Immutable.List()})
-    );
-  });
-
-  it('marks as listing for LISTING_MESSAGES action', () => {
-    const action = {
-      type: LISTING_MESSAGES
-    };
-
-    expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"searching": false, "listing": true, "adding": false, "messages": Immutable.List()})
+      Immutable.Map({"searching": false, "adding": false, "messages": Immutable.List()})
     );
   });
 
@@ -37,7 +26,7 @@ describe('Messages reducer', () => {
     };
 
     expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List()})
+      Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List()})
     );
   });
 
@@ -48,13 +37,13 @@ describe('Messages reducer', () => {
     };
 
     expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"searching": false, "listing": false, "adding": false, "messages": Immutable.List(messages)})
+      Immutable.Map({"searching": false, "adding": false, "messages": Immutable.List(messages)})
     );
   });
 
   it('sets an error and marks loading as false a MESSAGES_LOAD_ERROR action', () => {
     const error = new Error("ugly error");
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
 
     const action = {
       type: MESSAGES_LOAD_ERROR,
@@ -68,7 +57,7 @@ describe('Messages reducer', () => {
   });
 
   it('ignores the error for MESSAGES_LOAD_ERROR if there is no flag', () => {
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
 
     const action = {
       type: MESSAGES_LOAD_ERROR
@@ -78,20 +67,20 @@ describe('Messages reducer', () => {
   });
 
   it('marks as adding for CREATING_MESSAGE', () => {
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
 
     const action = {
       type: CREATING_MESSAGE
     };
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"searching": true, "listing": false, "adding": true, "messages": Immutable.List(messages)})
+      Immutable.Map({"searching": true, "adding": true, "messages": Immutable.List(messages)})
     );
   });
 
   it('sets an error and marks adding as false a MESSAGE_CREATION_ERROR action', () => {
     const error = new Error("ugly error");
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": true, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": true, "messages": Immutable.List(messages)})
 
     const action = {
       type: MESSAGE_CREATION_ERROR,
@@ -100,12 +89,12 @@ describe('Messages reducer', () => {
     };
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List(messages), "error": error})
+      Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages), "error": error})
     );
   });
 
   it('ignores the error for MESSAGE_CREATION_ERROR if there is no flag', () => {
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": true, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": true, "messages": Immutable.List(messages)})
 
     const action = {
       type: MESSAGE_CREATION_ERROR
@@ -115,14 +104,14 @@ describe('Messages reducer', () => {
   });
 
   it('marks adding as false for MESSAGE_CREATED', () => {
-    const existingState = Immutable.Map({"searching": true, "listing": false, "adding": true, "messages": Immutable.List(messages)})
+    const existingState = Immutable.Map({"searching": true, "adding": true, "messages": Immutable.List(messages)})
 
     const action = {
       type: MESSAGE_CREATED
     };
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"searching": true, "listing": false, "adding": false, "messages": Immutable.List(messages)})
+      Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
     );
   });
 });

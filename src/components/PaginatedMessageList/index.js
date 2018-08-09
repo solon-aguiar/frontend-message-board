@@ -1,6 +1,7 @@
 import './styles.css';
 import React, { Component } from 'react';
 import ClinikoButton from '../ClinikoButton';
+import PropTypes from 'prop-types';
 
 //{!!this.props.messages.length && <ClinikoButton disabled={false} onClick={() => undefined} showLoadingIndicator={false} text={"loadMode"} /> }
 
@@ -22,3 +23,13 @@ export default class PaginatedMessageList extends Component {
     );
   }
 }
+
+PaginatedMessageList.propsTypes = {
+  messages: PropTypes.arrayOf(PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
+  })).isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onNextPage: PropTypes.func.isRequired,
+};
