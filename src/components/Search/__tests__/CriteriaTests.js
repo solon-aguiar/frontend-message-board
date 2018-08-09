@@ -98,6 +98,5 @@ describe('Criteria', () => {
 
     expect(onChange.mock.calls.length).toBe(1);
     expect(onChange.mock.calls[0]).toEqual([inputMessage, encodedColor]);
-  })
-  
+  });  
 });

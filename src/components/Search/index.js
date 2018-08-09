@@ -5,7 +5,7 @@ import Criteria from './Criteria';
 import LoadingIndicator from '../LoadingIndicator';
 import PaginatedMessageList from '../PaginatedMessageList';
 
-export default function MessageSearch(props) {
+export default function Search(props) {
   return (
     <section>
       <header className="header">
@@ -21,7 +21,7 @@ export default function MessageSearch(props) {
   );
 }
 
-MessageSearch.propsTypes = {
+Search.propsTypes = {
   colors: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
