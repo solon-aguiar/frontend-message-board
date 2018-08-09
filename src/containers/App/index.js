@@ -2,13 +2,14 @@ import './styles.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
-import Header from '../../components/Header';
-import MessageForm from '../../components/MessageForm';
+import PageBanner from '../../components/PageBanner';
+import Create from '../../components/Create';
 import Search from '../../components/Search';
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
   }
@@ -24,8 +25,8 @@ class App extends Component {
       <div id="app">
         <main className="main">
           <div className="container">
-            <Header isLoading={colors.listing || messages.adding || messages.searching} />
-            <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
+            <PageBanner isLoading={colors.listing || messages.adding || messages.searching} />
+            <Create isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
             <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
           </div>
         </main>
@@ -35,6 +36,29 @@ class App extends Component {
       </div>
     );
   }
+};
+
+App.propsTypes = {
+  messages: PropTypes.shape({
+    searching: PropTypes.bool.isRequired,
+    adding: PropTypes.bool.isRequired,
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired
+    })).isRequired
+  }).isRequired,
+  colors: PropTypes.shape({
+    listing: PropTypes.bool.isRequired,
+    colors: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired
+    })).isRequired
+  }).isRequired,
+  searchMessages: PropTypes.func.isRequired,
+  listColors: PropTypes.func.isRequired,
+  createMessage: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

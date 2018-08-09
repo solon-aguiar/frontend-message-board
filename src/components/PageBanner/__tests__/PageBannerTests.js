@@ -2,13 +2,13 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 import LoadingIndicator from '../../LoadingIndicator';
-import Header from '../../Header';
+import PageBanner from '../../PageBanner';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('Header', () => {
+describe('PageBanner', () => {
   it('renders with a loading indicator when loading', () => {
-    const enzymeWrapper = shallow(<Header isLoading />);
+    const enzymeWrapper = shallow(<PageBanner isLoading />);
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
     expect(enzymeWrapper.find('h1').text()).toEqual("Message board");
@@ -17,7 +17,7 @@ describe('Header', () => {
   });
 
   it('renders without loading indicator when not loading', () => {
-    const enzymeWrapper = shallow(<Header isLoading={false} />);
+    const enzymeWrapper = shallow(<PageBanner isLoading={false} />);
 
     expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
     expect(enzymeWrapper.find('h1').text()).toBe("Message board");

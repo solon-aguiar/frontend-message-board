@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import LoadingIndicator from '../LoadingIndicator';
 import PropTypes from 'prop-types';
 
-export default function Header(props) {
+export default function PageBanner(props) {
   return (
     <header className="header">
       <div className="header-title-container">
@@ -17,6 +17,6 @@ export default function Header(props) {
   )
 }
 
-Header.propsTypes = {
+PageBanner.propsTypes = {
   isLoading: PropTypes.bool.isRequired
 };

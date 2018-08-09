@@ -6,7 +6,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import DropdownList from '../DropdownList';
 import ClinikoButton from '../ClinikoButton';
 
-export default class MessageForm extends Component {
+export default class Create extends Component {
   constructor(props) {
     super(props);
 
@@ -94,7 +94,7 @@ export default class MessageForm extends Component {
   }
 }
 
-MessageForm.propsTypes = {
+Create.propsTypes = {
   colors: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

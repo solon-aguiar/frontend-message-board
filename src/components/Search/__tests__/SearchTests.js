@@ -3,7 +3,7 @@ import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 
 import Search from '../../Search';
-import PaginatedMessageList from '../../PaginatedMessageList';
+import MessageList from '../../MessageList';
 import Criteria from '../../Search/Criteria';
 import LoadingIndicator from '../../LoadingIndicator';
 
@@ -42,9 +42,9 @@ describe('Search', () => {
 
     expect(enzymeWrapper.find(Criteria).exists()).toBe(true);
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
-    expect(enzymeWrapper.find(PaginatedMessageList).exists()).toBe(true);
+    expect(enzymeWrapper.find(MessageList).exists()).toBe(true);
 
-    expect(enzymeWrapper.find(PaginatedMessageList).prop('messages')).toEqual(messages);
+    expect(enzymeWrapper.find(MessageList).prop('messages')).toEqual(messages);
     expect(enzymeWrapper.find(Criteria).prop('colors')).toEqual(colors);
   });
 
@@ -53,6 +53,6 @@ describe('Search', () => {
 
     expect(enzymeWrapper.find(Criteria).exists()).toBe(true);
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
-    expect(enzymeWrapper.find(PaginatedMessageList).exists()).toBe(true);
+    expect(enzymeWrapper.find(MessageList).exists()).toBe(true);
   });
 });

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Criteria from './Criteria';
 import LoadingIndicator from '../LoadingIndicator';
-import PaginatedMessageList from '../PaginatedMessageList';
+import MessageList from '../MessageList';
 
 export default function Search(props) {
   return (
@@ -16,7 +16,7 @@ export default function Search(props) {
         </div>
         <Criteria colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching} isAdding={props.isAdding} />
       </header>
-      <PaginatedMessageList messages={props.messages} />
+      <MessageList messages={props.messages} />
     </section>
   );
 }
