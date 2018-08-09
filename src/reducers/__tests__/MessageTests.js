@@ -21,12 +21,14 @@ describe('Messages reducer', () => {
   });
 
   it('should mark as searching for SEARCHING_MESSAGES action', () => {
+    const abortFunct = jest.fn();
     const action = {
-      type: SEARCHING_MESSAGES
+      type: SEARCHING_MESSAGES,
+      payload: abortFunct
     };
 
     expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List()})
+      Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(), "abort": abortFunct})
     );
   });
 
@@ -37,6 +39,19 @@ describe('Messages reducer', () => {
     };
 
     expect(reducer(undefined, action)).toEqual(
+      Immutable.Map({"searching": false, "adding": false, "messages": Immutable.List(messages)})
+    );
+  });
+
+  it('removes existing abort in a MESSAGES_LOADED action', () => {
+    const action = {
+      type: MESSAGES_LOADED,
+      payload: messages
+    };
+
+    const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List([]), "abort": "existing-abort"})
+
+    expect(reducer(existingState, action)).toEqual(
       Immutable.Map({"searching": false, "adding": false, "messages": Immutable.List(messages)})
     );
   });
@@ -52,7 +67,7 @@ describe('Messages reducer', () => {
     };
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"searching": false, "listing": false, "adding": false, "messages": Immutable.List(messages), "error": error})
+      Immutable.Map({"searching": false, "adding": false, "messages": Immutable.List(messages), "error": error})
     );
   });
 
@@ -61,6 +76,21 @@ describe('Messages reducer', () => {
 
     const action = {
       type: MESSAGES_LOAD_ERROR
+    };
+
+    expect(reducer(existingState, action)).toEqual(existingState);
+  });
+
+  it('does not change loading state for AbortError', () => {
+    const error = new Error("ugly error");
+    error.name = 'AbortError';
+
+    const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
+
+    const action = {
+      type: MESSAGES_LOAD_ERROR,
+      payload: error,
+      error: true
     };
 
     expect(reducer(existingState, action)).toEqual(existingState);

@@ -10,10 +10,22 @@ import {
   MESSAGE_CREATION_ERROR,
   MESSAGE_CREATED
 } from '../../constants/ActionTypes';
-import * as actions from '../../actions/MessageActions'
+import * as actions from '../../actions/MessageActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+
+const signal = function() {return "signal"}
+const abort = function() {return "abort"}
+
+const myAbortController = class MockAbortController {
+  constructor() {
+    this.signal = "signal"
+    this.abort = "abort"
+  }
+}
+global.AbortController = myAbortController;
+const mockAbortObj = new AbortController();
 
 describe('MessageActions', () => {
   afterEach(() => {
@@ -78,13 +90,15 @@ describe('MessageActions', () => {
       fetch.mockResponse(JSON.stringify(messages));
 
       const expectedActions = [
-        { type: SEARCHING_MESSAGES },
+        { type: SEARCHING_MESSAGES, payload: mockAbortObj },
         { type: MESSAGES_LOADED, payload: messages }
       ];
-      const store = mockStore({})
-
+      const store = mockStore({});
+      
       return store.dispatch(actions.searchMessages("content", "blue")).then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
+        expect(store.getActions()).toEqual(expectedActions);
+        expect(fetch.mock.calls.length).toBe(1);
+        expect(fetch.mock.calls[0]).toEqual(['/api/messages?_sort=id&_order=desc&q=content&color=blue', { signal: 'signal' } ]);
       });
     });
 
@@ -94,7 +108,7 @@ describe('MessageActions', () => {
       fetch.mockReject(error);
 
       const expectedActions = [
-        { type: SEARCHING_MESSAGES },
+        { type: SEARCHING_MESSAGES, payload: mockAbortObj },
         { type: MESSAGES_LOAD_ERROR, payload: error, error: true }
       ];
       const store = mockStore({})

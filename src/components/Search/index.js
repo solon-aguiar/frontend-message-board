@@ -14,7 +14,7 @@ export default function Search(props) {
           <span className="header-text-number">{props.messages.length}</span>
           {props.isSearching && <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} /> }
         </div>
-        <Criteria colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching} isAdding={props.isAdding} />
+        <Criteria abortExistingRequest={props.abortExistingRequest} colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching} isAdding={props.isAdding} />
       </header>
       <MessageList messages={props.messages} />
     </section>
@@ -33,6 +33,7 @@ Search.propsTypes = {
     id: PropTypes.number.isRequired
   })).isRequired,
   searchMessages: PropTypes.func.isRequired,
+  abortExistingRequest: PropTypes.func,
   isSearching: PropTypes.bool.isRequired,
   isAdding: PropTypes.bool.isRequired
 };

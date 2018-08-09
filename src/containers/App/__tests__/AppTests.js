@@ -38,6 +38,7 @@ describe('App', () => {
   const searchMessagesMock = jest.fn();
   const listColorsMock = jest.fn();
   const createMessageMock = jest.fn();
+  const abortMock = jest.fn();
 
   afterEach(() => {
     searchMessagesMock.mockReset();
@@ -45,7 +46,7 @@ describe('App', () => {
   });
 
   it('renders the three parts of the page with props', () => {
-    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false,searching:false}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false, abort: abortMock}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
 
     expect(enzymeWrapper.find(PageBanner).exists()).toBe(true);
     expect(enzymeWrapper.find(Create).exists()).toBe(true);
@@ -53,7 +54,7 @@ describe('App', () => {
 
     expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(false);
     expect(enzymeWrapper.find(Create).props()).toEqual({isReady: true, colors: colors, isAddingMessage:false, addMessage:createMessageMock});
-    expect(enzymeWrapper.find(Search).props()).toEqual({messages: messages, colors: colors, isSearching:false, isAdding:false, searchMessages:searchMessagesMock});
+    expect(enzymeWrapper.find(Search).props()).toEqual({messages: messages, colors: colors, isSearching:false, isAdding:false, searchMessages:searchMessagesMock, abortExistingRequest: abortMock});
   });
 
   it('searches for messages and colors on start', () => {

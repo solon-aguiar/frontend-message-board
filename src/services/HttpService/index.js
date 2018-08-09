@@ -5,9 +5,9 @@ export default class HttpService {
     this.baseUrl = baseUrl;
   }
 
-  get(path, queryParams = undefined) {
+  get(path, queryParams = undefined, signal = undefined) {
     const fullUrl = queryParams ? `${this.baseUrl}${path}?${queryParams}` : `${this.baseUrl}${path}`;
-    return fetch(fullUrl);
+    return fetch(fullUrl, {signal});
   }
 
   post(path, body) {

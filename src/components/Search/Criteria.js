@@ -34,9 +34,15 @@ export default class Criteria extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.selectedColor != this.state.selectedColor || prevState.messageContent != this.state.messageContent) {
+      if (this.props.abortExistingRequest) {
+        this.props.abortExistingRequest.abort();
+      }
       this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
     }
     if (!!prevProps.isAdding && !this.props.isAdding) {
+      if (this.props.abortExistingRequest) {
+        this.props.abortExistingRequest.abort()
+      }
       this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
     }
   }

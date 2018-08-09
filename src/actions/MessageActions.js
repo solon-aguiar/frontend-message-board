@@ -10,9 +10,10 @@ import {
   MESSAGE_CREATED
 } from '../constants/ActionTypes';
 
-function searchingMessages() {
+function searchingMessages(abort) {
   return {
-    type: SEARCHING_MESSAGES
+    type: SEARCHING_MESSAGES,
+    payload: abort
   };
 }
 
@@ -63,9 +64,10 @@ function createMessage(content, color) {
 
 function searchMessages(content, color) {
   return dispatch => {
-    dispatch(searchingMessages());
+    const abortController = new AbortController();
+    dispatch(searchingMessages(abortController));
 
-    return Messages.get(content, color)
+    return Messages.get(content, color, abortController.signal)
       .then(response => response.json())
       .then(body => dispatch(loadedMessages(body)))
       .catch(err => dispatch(loadError(err)));

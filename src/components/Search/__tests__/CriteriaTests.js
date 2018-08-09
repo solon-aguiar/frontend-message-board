@@ -22,6 +22,7 @@ describe('Criteria', () => {
     }
   ];
   const onChange = jest.fn();
+  const abortRequestMock = jest.fn();
 
   afterEach(() => {
     onChange.mockReset();
@@ -75,6 +76,17 @@ describe('Criteria', () => {
 
     expect(onChange.mock.calls.length).toBe(1);
     expect(onChange.mock.calls[0]).toEqual([inputMessage, ""]);
+  });
+
+  it('aborts existing request and triggers new search on state changes', () => {
+    const inputMessage = 'new message content';
+
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching abortExistingRequest={{abort: abortRequestMock}}/>);
+    enzymeWrapper.setState({messageContent: inputMessage});
+
+    expect(onChange.mock.calls.length).toBe(1);
+    expect(onChange.mock.calls[0]).toEqual([inputMessage, ""]);
+    expect(abortRequestMock.mock.calls.length).toBe(1);
   });
 
   it('triggers search on elements added', () => {

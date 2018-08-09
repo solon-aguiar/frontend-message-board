@@ -21,17 +21,16 @@ export default function messages(state = initialState, action) {
 
   switch (action.type) {
     case SEARCHING_MESSAGES:
-      return state.set('searching', true);
+      return state.set('searching', true).set('abort', action.payload);
     case MESSAGES_LOADED:
       const messages = action.payload;
 
       return initialState.set('messages', Immutable.List(messages));
     case MESSAGES_LOAD_ERROR:
-      if (isError) {
+      if (isError && action.payload.name != 'AbortError') {
         return state
           .merge({
             'error': action.payload,
-            'listing': false,
             'searching': false
           });
       } else {

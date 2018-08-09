@@ -53,6 +53,17 @@ describe('Messages', () => {
       expect(fetch.mock.calls.length).toEqual(1);
       expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&q=my-query-string&color=blue`);
     });
+
+    it('calls the HttpService with a signal if provided', () => {
+      fetch.mockResponse(mockResponse);
+
+      Messages.get('my-query-string', 'blue', 'my-signal').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+      
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&q=my-query-string&color=blue`, {signal: 'my signal'});
+    });
   });
 
   describe('create', () => {

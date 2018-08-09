@@ -27,7 +27,7 @@ export class App extends Component {
           <div className="container">
             <PageBanner isLoading={colors.listing || messages.adding || messages.searching} />
             <Create isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
-            <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
+            <Search abortExistingRequest={messages.abort} colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
           </div>
         </main>
         <footer role="contentinfo" className="footer">
@@ -42,6 +42,7 @@ App.propsTypes = {
   messages: PropTypes.shape({
     searching: PropTypes.bool.isRequired,
     adding: PropTypes.bool.isRequired,
+    abort: PropTypes.shape,
     messages: PropTypes.arrayOf(PropTypes.shape({
       content: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,

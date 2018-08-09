@@ -36,9 +36,10 @@ describe('Search', () => {
     }
   ];
   const onChange = jest.fn();
+  const abortExistingRequestMock = jest.fn();
 
   it('renders the subcomponents', () => {
-    const enzymeWrapper = shallow(<Search colors={colors} searchMessages={onChange} isSearching={false} messages={messages} />);
+    const enzymeWrapper = shallow(<Search colors={colors} searchMessages={onChange} isSearching={false} messages={messages} abortExistingRequest={abortExistingRequestMock} />);
 
     expect(enzymeWrapper.find(Criteria).exists()).toBe(true);
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
@@ -46,6 +47,7 @@ describe('Search', () => {
 
     expect(enzymeWrapper.find(MessageList).prop('messages')).toEqual(messages);
     expect(enzymeWrapper.find(Criteria).prop('colors')).toEqual(colors);
+    expect(enzymeWrapper.find(Criteria).prop('abortExistingRequest')).toEqual(abortExistingRequestMock);
   });
 
   it('shows LoadingIndicator in case an operation is happening', () => {

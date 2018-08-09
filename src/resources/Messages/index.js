@@ -8,7 +8,7 @@ class Messages {
     this.path = '/api/messages';
   }
 
-  get(searchText = undefined, color = undefined) {
+  get(searchText = undefined, color = undefined, abort = undefined) {
     let queryString = (!!searchText || !!color) ? "_sort=id&_order=desc" : undefined;
 
     if (!!searchText) {
@@ -18,7 +18,7 @@ class Messages {
       queryString += `&color=${color}`;
     }
 
-    return this.service.get(this.path, queryString);
+    return this.service.get(this.path, queryString, abort);
   }
 
   create(content, color) {

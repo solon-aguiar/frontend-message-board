@@ -34,6 +34,19 @@ describe('HttpService', () => {
 
       expect(fetch.mock.calls.length).toEqual(1);
       expect(fetch.mock.calls[0][0]).toEqual('my-url/messages');
+    });
+
+    it('uses a fetch signal if provided', () => {
+      fetch.mockResponse(mockResponse);
+
+      const subject = new HttpService('my-url');
+
+      subject.get('/messages', undefined, 'signal').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual('my-url/messages', {signal: 'signal'});
     })
   });
 
