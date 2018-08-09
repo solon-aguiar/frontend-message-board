@@ -1,5 +1,7 @@
 import './styles.css';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import LoadingIndicator from '../LoadingIndicator';
 import DropdownList from '../DropdownList';
 import ClinikoButton from '../ClinikoButton';
@@ -11,7 +13,7 @@ export default class MessageForm extends Component {
     this.state = {
       messageContent: '',
       messageColor: '',
-      hasError: false
+      hasMessageContentError: false
     }
 
     this.onColorSelected = this.onColorSelected.bind(this);
@@ -33,23 +35,23 @@ export default class MessageForm extends Component {
 
     this.setState({
       messageContent: content,
-      hasError: !content.trim()
+      hasMessageContentError: !content.trim()
     });
   }
 
   onBlur(event) {
     if (!this.state.messageContent.trim()) {
       this.setState({
-        hasError: true
+        hasMessageContentError: true
       });
     }
   }
 
   clearState() {
-     this.setState({
+    this.setState({
       messageContent: '',
       messageColor: '',
-      hasError: false
+      hasMessageContentError: false
     });
   }
 
@@ -61,7 +63,7 @@ export default class MessageForm extends Component {
   }
 
   canSubmit() {
-    return !this.state.hasError && !!this.state.messageColor;
+    return !this.state.hasMessageContentError && !!this.state.messageColor;
   }
 
   render() {
@@ -78,7 +80,7 @@ export default class MessageForm extends Component {
               <div className="message-content-field-container touched">
                 <label className="message-content-field-label" htmlFor="message">Message</label>
                 <input id="message" className="message-content" value={this.state.messageContent} onChange={this.handleMessageContentChange} onBlur={this.onBlur}/>
-                {this.state.hasError && <div className="error-message" role="alert">A message is required</div>}
+                {this.state.hasMessageContentError && <div className="error-message" role="alert">A message is required</div>}
               </div>
               <div>
                 <label className="message-content-field-label" htmlFor="color">Color</label>
@@ -92,3 +94,14 @@ export default class MessageForm extends Component {
     )
   }
 }
+
+MessageForm.propsTypes = {
+  colors: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
+  })).isRequired,
+  addMessage: PropTypes.func.isRequired,
+  listMessages: PropTypes.func.isRequired,
+  isAddingMessage: PropTypes.bool.isRequired
+};

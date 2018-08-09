@@ -36,7 +36,7 @@ describe('ClinikoButton', () => {
   it('triggers the callback onClick if enabled', () => {
     const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClick} showLoadingIndicator text={buttonText} />);
 
-    enzymeWrapper.find('button').get(0).props.onClick();
+    enzymeWrapper.find('button').prop('onClick')();
     expect(onClick.mock.calls.length).toBe(1);
   });
 });
