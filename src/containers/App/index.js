@@ -1,3 +1,5 @@
+import './styles.css';
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as MessageActions from '../../actions/MessageActions';
@@ -20,14 +22,14 @@ class App extends Component {
     const {colors, messages} = this.props;
     return (
       <div id="app">
-        <main className="cc0img9">
-          <div className="cgmxdsh">
+        <main className="main">
+          <div className="container">
             <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
             <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
             <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} />
           </div>
         </main>
-        <footer role="contentinfo" className="c1tr6g77">
+        <footer role="contentinfo" className="footer">
           <p>Made by Solon</p>
         </footer>
       </div>

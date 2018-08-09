@@ -10,7 +10,7 @@
   min-height: 100%;
 }
 
-.cc0img9 {
+.main {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -18,37 +18,37 @@
 }
 
 @media screen and (min-width: 32em) {
-  .cc0img9 {
+  .main {
     padding: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
   }
 }
 
 @media screen and (min-width: 60em) {
-  .cc0img9 {
+  .main {
     padding: 2rem;
   }
 }
 
-.cgmxdsh {
+.container {
   margin-left: auto;
   margin-right: auto;
   max-width: 96rem;
 }
 
-.c1tr6g77 {
+.footer {
   padding: 1.6rem;
   background: #efefef;
   text-align: center;
 }
 
 @media screen and (min-width: 32em) {
-  .c1tr6g77 {
+  .footer {
     padding: calc(1.6rem + 0.3999999999999999 * (100vw - 32rem) / 28);
   }
 }
 
 @media screen and (min-width: 60em) {
-  .c1tr6g77 {
+  .footer {
     padding: 2rem;
   }
 }
