@@ -1,4 +1,5 @@
 import './styles.css';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -66,7 +67,7 @@ export default class Create extends Component {
   }
 
   render() {
-    const {colors} = this.props;
+    const { colors } = this.props;
     const colorOptions = [{name: 'Choose a color...', value: '', id:'fake-id'}].concat(colors);
     
     return (
@@ -77,10 +78,12 @@ export default class Create extends Component {
           <div className="fields-container">
             <div className="message-content-container">
               <div className="message-content-field-container touched">
-                <label className="message-content-field-label" htmlFor="message">Message</label>
+                <label className="message-content-field-label">Message</label>
                 <input id="message" className="message-content" value={this.state.messageContent} onChange={this.handleMessageContentChange} onBlur={this.onBlur}/>
+
                 {this.state.hasMessageContentError && <div className="error-message" role="alert">A message is required</div>}
               </div>
+
               <div>
                 <label className="message-content-field-label" htmlFor="color">Color</label>
                 <DropdownList options={colorOptions} onChange={this.onColorSelected} selected={this.state.messageColor} />

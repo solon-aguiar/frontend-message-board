@@ -1,4 +1,5 @@
 import './styles.css';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,18 +12,18 @@ export default class Criteria extends Component {
 
     this.state = {
       selectedColor: '',
-      messageContent: ''
+      searchQuery: ''
     };
 
     this.onColorSelected = this.onColorSelected.bind(this);
-    this.handleMessageContentChange = this.handleMessageContentChange.bind(this);
+    this.handleSearchQueryChange = this.handleSearchQueryChange.bind(this);
   }
 
-  handleMessageContentChange(event) {
+  handleSearchQueryChange(event) {
     const content = event.target.value;
 
     this.setState({
-      messageContent: content
+      searchQuery: content
     });
   }
 
@@ -32,23 +33,33 @@ export default class Criteria extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedColor != this.state.selectedColor || prevState.messageContent != this.state.messageContent) {
-      if (this.props.abortExistingRequest) {
+  createdNewMessages(prevProps) {
+    return !!prevProps.isAdding && !this.props.isAdding
+  }
+
+  hasOutstandingSearchRequest() {
+    return !!this.props.abortExistingRequest;
+  }
+
+  changedSearchParameters(prevProps, prevState) {
+    return prevState.selectedColor != this.state.selectedColor || prevState.searchQuery != this.state.searchQuery
+  }
+
+  abortExistingSearches() {
+    if (this.hasOutstandingSearchRequest()) {
         this.props.abortExistingRequest.abort();
-      }
-      this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
     }
-    if (!!prevProps.isAdding && !this.props.isAdding) {
-      if (this.props.abortExistingRequest) {
-        this.props.abortExistingRequest.abort()
-      }
-      this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedColor));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.changedSearchParameters(prevProps, prevState) || this.createdNewMessages(prevProps)) {
+      this.abortExistingSearches();
+      this.props.onChange(this.state.searchQuery, encodeURIComponent(this.state.selectedColor));
     }
   }
 
   render() {
-    const {colors} = this.props;
+    const { colors } = this.props;
     const colorsToDisplay = [{name: 'All colors', value: '', id:'fake-id'}].concat(colors);
     
     return (
@@ -56,13 +67,15 @@ export default class Criteria extends Component {
         <div className="search-input-content-container">
           <label className="search-label">Search</label>
           <div className="search-input">
-            <input type="search" className="search-input-component" value={this.state.messageContent} onChange={this.handleMessageContentChange} />
-            {this.props.isSearching && !!this.state.messageContent && <LoadingIndicator cssClass={"internal-loading-indicator-right"}/> }
+            <input type="search" className="search-input-component" value={this.state.searchQuery} onChange={this.handleSearchQueryChange} />
+
+            {this.props.isSearching && !!this.state.searchQuery && <LoadingIndicator cssClass={"internal-loading-indicator-right"}/> }
           </div>
         </div>
         <div className="search-color">
           <label className="search-label">Filter</label>
-          <DropdownList options={colorsToDisplay} onChange={this.onColorSelected} selected={this.state.selectedColor}/>
+
+          <DropdownList options={colorsToDisplay} onChange={this.onColorSelected} selected={this.state.selectedColor} />
         </div>
       </div>
     );

@@ -1,7 +1,9 @@
 import './styles.css';
-import React, { Component } from 'react';
-import LoadingIndicator from '../LoadingIndicator';
+
+import React from 'react';
 import PropTypes from 'prop-types';
+
+import LoadingIndicator from '../LoadingIndicator';
 
 export default function PageBanner(props) {
   return (

@@ -21,104 +21,112 @@ describe('Criteria', () => {
       name: 'Value 2'
     }
   ];
-  const onChange = jest.fn();
+  const onChangeMock = jest.fn();
   const abortRequestMock = jest.fn();
 
   afterEach(() => {
-    onChange.mockReset();
+    onChangeMock.mockReset();
+    abortRequestMock.mockReset();
   });
 
   it('renders with subcomponents', () => {
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
 
     expect(enzymeWrapper.find(DropdownList).exists()).toBe(true);
     expect(enzymeWrapper.find('input').exists()).toBe(true);
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
   });
 
-  it('adds a default empty option color', () => {
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
+  it('adds a default all colors option', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
 
     const optionsWithDefault = [{name: 'All colors', value: '', id:'fake-id'}].concat(colors);
     expect(enzymeWrapper.find(DropdownList).prop('options')).toEqual(optionsWithDefault);
   });
 
-  it('shows LoadingIndicator if searching with content', () => {
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
-    enzymeWrapper.setState({messageContent: "message"});
+  it('shows LoadingIndicator if searching with text', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.setState({searchQuery: "message"});
 
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
   });
 
   it('changes state on input changes', () => {
-    const inputMessage = 'new message content';
+    const searchQuery = 'new message content';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
-    enzymeWrapper.find('input').prop('onChange')({target:{value:inputMessage}});
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+    enzymeWrapper.find('input').prop('onChange')({target:{value:searchQuery}});
 
-    expect(enzymeWrapper.state('messageContent')).toEqual(inputMessage);
+    expect(enzymeWrapper.state('searchQuery')).toEqual(searchQuery);
   });
 
   it('changes state on color changes', () => {
     const newColor = 'rainbow';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
     enzymeWrapper.find(DropdownList).prop('onChange')(newColor);
 
     expect(enzymeWrapper.state('selectedColor')).toEqual(newColor);
   });
 
   it('triggers search on state changes', () => {
-    const inputMessage = 'new message content';
+    const searchQuery = 'new message content';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
-    enzymeWrapper.setState({messageContent: inputMessage});
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.setState({searchQuery: searchQuery});
 
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0]).toEqual([inputMessage, ""]);
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, ""]);
   });
 
-  it('aborts existing request and triggers new search on state changes', () => {
-    const inputMessage = 'new message content';
+  it('aborts existing request and triggers new request on search criteria change', () => {
+    const searchQuery = 'new message content';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching abortExistingRequest={{abort: abortRequestMock}}/>);
-    enzymeWrapper.setState({messageContent: inputMessage});
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching abortExistingRequest={{abort: abortRequestMock}}/>);
+    enzymeWrapper.setState({searchQuery: searchQuery});
 
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0]).toEqual([inputMessage, ""]);
     expect(abortRequestMock.mock.calls.length).toBe(1);
   });
 
-  it('triggers search on elements added', () => {
-    const inputMessage = 'new message content';
-
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching isAdding />);
+  it('triggers search on new messages added', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching isAdding />);
     enzymeWrapper.setProps({isAdding: false});
 
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0]).toEqual(["", ""]);
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual(["", ""]);
+  });
+
+  it('aborts existing request and triggers new request on new messages added', () => {
+    const searchQuery = 'new message content';
+
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching isAdding abortExistingRequest={{abort: abortRequestMock}}/>);
+    enzymeWrapper.setProps({isAdding: false});
+
+    expect(abortRequestMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual(["", ""]);
   });
 
   it('searches with color and content', () => {
-    const inputMessage = 'new message content';
+    const searchQuery = 'new message content';
     const newColor = 'rainbow';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
-    enzymeWrapper.setState({messageContent: inputMessage, selectedColor:newColor});
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.setState({searchQuery: searchQuery, selectedColor:newColor});
 
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0]).toEqual([inputMessage, newColor]);
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, newColor]);
   });
 
   it('encodes the URI for the color', () => {
-    const inputMessage = 'new message content';
-    const newColor = '#2795D9';
+    const searchQuery = 'new message content';
+    const colorSelected = '#2795D9';
     const encodedColor = '%232795D9';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChange} isSearching />);
-    enzymeWrapper.setState({messageContent: inputMessage, selectedColor:newColor});
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.setState({searchQuery: searchQuery, selectedColor:colorSelected});
 
-    expect(onChange.mock.calls.length).toBe(1);
-    expect(onChange.mock.calls[0]).toEqual([inputMessage, encodedColor]);
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, encodedColor]);
   });  
 });

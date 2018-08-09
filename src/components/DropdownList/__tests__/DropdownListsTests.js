@@ -19,10 +19,10 @@ describe('DropdownList', () => {
     }
   ];
 
-  const onChange = jest.fn();
+  const onChangeMock = jest.fn();
 
   it('renders each option with the specified one selected', () => {
-    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} selected={'value1'}/>);
+    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChangeMock} selected={'value1'}/>);
 
     expect(enzymeWrapper.find('select').hasClass('dropdown')).toBe(true);
     expect(enzymeWrapper.find('select').get(0).props.value).toEqual('value1');
@@ -33,9 +33,9 @@ describe('DropdownList', () => {
   });
 
   it('triggers the callback on the value selected', () => {
-    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChange} selected={'value1'}/>);
+    const enzymeWrapper = shallow(<DropdownList options={options} onChange={onChangeMock} selected={'value1'}/>);
 
     enzymeWrapper.find('select').get(0).props.onChange({target:{value:'value2'}});
-    expect(onChange.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls.length).toBe(1);
   });
 });

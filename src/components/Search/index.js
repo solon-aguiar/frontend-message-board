@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import './styles.css';
+
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Criteria from './Criteria';

@@ -20,7 +20,7 @@ describe('Messages reducer', () => {
     );
   });
 
-  it('should mark as searching for SEARCHING_MESSAGES action', () => {
+  it('marks as searching for SEARCHING_MESSAGES action', () => {
     const abortFunct = jest.fn();
     const action = {
       type: SEARCHING_MESSAGES,

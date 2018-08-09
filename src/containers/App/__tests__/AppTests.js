@@ -45,7 +45,7 @@ describe('App', () => {
     listColorsMock.mockReset();
   });
 
-  it('renders the three parts of the page with props', () => {
+  it('renders all parts of the page with props', () => {
     const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false, abort: abortMock}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
 
     expect(enzymeWrapper.find(PageBanner).exists()).toBe(true);

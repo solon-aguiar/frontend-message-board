@@ -1,7 +1,9 @@
 import './styles.css';
+
 import React, { Component } from 'react';
-import LoadingIndicator from '../LoadingIndicator';
 import PropTypes from 'prop-types';
+
+import LoadingIndicator from '../LoadingIndicator';
 
 export default function ClinikoButton(props) {
   return(

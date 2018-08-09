@@ -22,61 +22,61 @@ describe('Create', () => {
     }
   ];
   const addMessageResponse = () => Promise.resolve();
-  const addMessage = jest.fn().mockImplementation(addMessageResponse);
+  const addMessageMock = jest.fn().mockImplementation(addMessageResponse);
 
   afterEach(() => {
-    addMessage.mockClear();
+    addMessageMock.mockClear();
   });
 
   it('renders with subcomponents', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={false} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={false} />);
 
     expect(enzymeWrapper.find(DropdownList).exists()).toBe(true);
     expect(enzymeWrapper.find(ClinikoButton).exists()).toBe(true);
     expect(enzymeWrapper.find('input').exists()).toBe(true);
   });
 
-  it('adds a default empty option color', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={false} />);
+  it('adds a default empty color option', () => {
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={false} />);
 
     const optionsWithDefault = [{name: 'Choose a color...', value: '', id:'fake-id'}].concat(colors);
     expect(enzymeWrapper.find(DropdownList).prop('options')).toEqual(optionsWithDefault);
   });
 
   it('disables the submit button on start', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
 
     expect(enzymeWrapper.find(ClinikoButton).prop('disabled')).toEqual(true);
   });
 
   it('renders button with loading indicator when adding new messages', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     expect(enzymeWrapper.find(ClinikoButton).prop('showLoadingIndicator')).toEqual(true);
 
-    const anotherEnzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={false} />);
+    const anotherEnzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={false} />);
     expect(anotherEnzymeWrapper.find(ClinikoButton).prop('showLoadingIndicator')).toEqual(false);
   });
 
-  it('changes the message content on input', () => {
+  it('records the messageContent on input', () => {
     const inputMessage = 'new message content';
 
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find('input').prop('onChange')({target:{value:inputMessage}});
 
     expect(enzymeWrapper.state('messageContent')).toEqual(inputMessage);
   });
 
-  it('changes the message color on input', () => {
+  it('records the messageColor on user selection', () => {
     const newColor = 'rainbow';
 
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find(DropdownList).prop('onChange')(newColor);
 
     expect(enzymeWrapper.state('messageColor')).toEqual(newColor);
   });
 
-  it('shows error message for empty input content', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+  it('shows error message for empty input messageContent', () => {
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     expect(enzymeWrapper.find('.error-message').exists()).toEqual(false);
 
     enzymeWrapper.find('input').prop('onChange')({target:{value:" "}});
@@ -88,7 +88,7 @@ describe('Create', () => {
   });
 
   it('clears error message on valid inputs', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find('input').prop('onChange')({target:{value:" "}});
 
     enzymeWrapper.update();
@@ -101,7 +101,7 @@ describe('Create', () => {
   });
 
   it('does not allow submission for no color', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find('input').prop('onChange')({target:{value:"a valid message now!"}});
 
     expect(enzymeWrapper.instance().canSubmit()).toEqual(false);
@@ -111,7 +111,7 @@ describe('Create', () => {
     const newColor = 'rainbow';
     const inputMessage = 'new message content';
 
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find('input').prop('onChange')({target:{value:inputMessage}});
     enzymeWrapper.find(DropdownList).prop('onChange')(newColor);
 
@@ -125,7 +125,7 @@ describe('Create', () => {
     const newColor = 'rainbow';
     const inputMessage = 'new message content';
 
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find('input').prop('onChange')({target:{value:inputMessage}});
     enzymeWrapper.find(DropdownList).prop('onChange')(newColor);
 
@@ -133,14 +133,15 @@ describe('Create', () => {
     await addMessageResponse
 
     enzymeWrapper.update();
+    expect(addMessageMock.mock.calls.length).toBe(1);
     expect(enzymeWrapper.instance().canSubmit()).toEqual(false);
     expect(enzymeWrapper.state()).toEqual({messageContent: '', messageColor: '', hasMessageContentError: false});
     expect(enzymeWrapper.find(ClinikoButton).prop('disabled')).toEqual(true);
     expect(enzymeWrapper.find(DropdownList).prop('selected')).toEqual('');
   });
 
-  it('shows error for invalid message on blur of the input', () => {
-    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessage} isAddingMessage={true} />);
+  it('validates messageContent on blur of the input', () => {
+    const enzymeWrapper = shallow(<Create colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     expect(enzymeWrapper.find('.error-message').exists()).toEqual(false);
 
     enzymeWrapper.find('input').prop('onBlur')({});
