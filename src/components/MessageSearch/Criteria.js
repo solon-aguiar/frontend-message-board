@@ -1,24 +1,40 @@
 import './styles.css';
 import React, { Component } from 'react';
-import LoadingIndicator from '../LoadingIndicator';
+
 import DropdownList from '../DropdownList';
+import LoadingIndicator from '../LoadingIndicator';
 
 export default class Criteria extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedOption: ''
-    }
+      selectedOption: '',
+      messageContent: ''
+    };
 
-    this.onOptionSelected = this.onOptionSelected.bind(this);
+    this.onColorSelected = this.onColorSelected.bind(this);
+    this.handleMessageContentChange = this.handleMessageContentChange.bind(this);
   }
 
-  onOptionSelected(option) {
-    console.log("cheguei aqui no outro", option);
+  handleMessageContentChange(event) {
+    const content = event.target.value;
+
     this.setState({
-      selectedOption: option
+      messageContent: content
     });
+  }
+
+  onColorSelected(color) {
+    this.setState({
+      selectedOption: color
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedOption != this.state.selectedOption || prevState.messageContent != this.state.messageContent) {
+      this.props.onChange(this.state.messageContent, encodeURIComponent(this.state.selectedOption));
+    }
   }
 
   render() {
@@ -26,31 +42,19 @@ export default class Criteria extends Component {
     const colorsToDisplay = [{name: 'All colors', value: '', id:'fake-id'}].concat(colors);
     
     return (
-      <header className="c1pr40a">
-        <div className="c12q1r7z">
-          <h2 className="c17zq7b5">Messages</h2>
-          <p>
-            <span className="ca2ougy">There are </span>
-            <span className="c1lerdlx">5</span>
-            <span className="ca2ougy">messages showing</span>
-          </p>
-
-          <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} />
-        </div>
-        <div className="c7gtt9t">
-          <div className="c1w33pjg">
-            <label className="c1ug13ud" htmlFor="id-50854520">Search</label>
-            <div className="c6v0e9l">
-              <input type="search" className="cshm1e9" id="id-50854520" aria-controls="results" value=""/>
-              <LoadingIndicator cssClass={"internal-loading-indicator-right"}/>
-            </div>
-          </div>
-          <div className="c1e30x2x">
-            <label className="c1ug13ud" htmlFor="color-filter">Filter</label>
-            <DropdownList options={colorsToDisplay} onChange={this.onOptionSelected} selected={this.state.selectedOption}/>
+      <div className="c7gtt9t">
+        <div className="c1w33pjg">
+          <label className="c1ug13ud" htmlFor="id-50854520">Search</label>
+          <div className="c6v0e9l">
+            <input type="search" className="cshm1e9" id="id-50854520" value={this.state.messageContent} onChange={this.handleMessageContentChange} aria-controls="results"/>
+            {this.props.isSearching && !!this.state.messageContent && <LoadingIndicator cssClass={"internal-loading-indicator-right"}/> }
           </div>
         </div>
-      </header>
+        <div className="c1e30x2x">
+          <label className="c1ug13ud" htmlFor="color-filter">Filter</label>
+          <DropdownList options={colorsToDisplay} onChange={this.onColorSelected} selected={this.state.selectedOption}/>
+        </div>
+      </div>
     );
   }
 }

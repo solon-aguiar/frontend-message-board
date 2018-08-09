@@ -1,7 +1,7 @@
 import './styles.css';
 import React, { Component } from 'react';
 
-export default class Results extends Component {
+export default class PaginatedMessageList extends Component {
   constructor(props) {
     super(props);
   }

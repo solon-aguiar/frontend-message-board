@@ -1,0 +1,77 @@
+.ccqw98a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: -0.8rem;
+  margin-right: -0.8rem;
+}
+
+@media screen and (min-width: 32em) {
+  .ccqw98a {
+    margin-top: calc(-0.8rem + -0.19999999999999996 * (100vw - 32rem) / 28);
+    margin-right: calc(-0.8rem + -0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ccqw98a {
+    margin-top: -1rem;
+    margin-right: -1rem;
+  }
+}
+
+.ccqw98a > * {
+  margin-top: 0.8rem;
+  margin-right: 0.8rem;
+}
+
+@media screen and (min-width: 32em) {
+  .ccqw98a > * {
+    margin-top: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    margin-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .ccqw98a > * {
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+.cvvv1yb {
+  background: #494a4c;
+  color: #fff;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+  text-shadow: 0 1px 0.5px #494a4c;
+  border-radius: 4px;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+@media screen and (min-width: 32em) {
+  .cvvv1yb {
+    padding-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-top: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+    padding-bottom: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .cvvv1yb {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}

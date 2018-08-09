@@ -21,7 +21,7 @@ describe('Messages', () => {
       expect(fetch.mock.calls[0][0]).toEqual(`/api/messages`);
     });
 
-    it('calls the HttpService with a search query if specified content', () => {
+    it('calls the HttpService with a text query if specified content', () => {
       fetch.mockResponse(mockResponse);
 
       Messages.get('my-query-string').then(response => {
@@ -30,6 +30,17 @@ describe('Messages', () => {
       
       expect(fetch.mock.calls.length).toEqual(1);
       expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&q=my-query-string`);
+    });
+
+    it('calls the HttpService with a color query if specified content', () => {
+      fetch.mockResponse(mockResponse);
+
+      Messages.get('', 'my-query-string').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+      
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc&color=my-query-string`);
     });
 
     it('calls the HttpService with a full search query', () => {
