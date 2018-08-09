@@ -16,11 +16,7 @@ export default class MessageSearch extends Component {
         <header className="header">
           <div className="info-panel">
             <h2 className="header-text">Messages</h2>
-            <p>
-              <span className="header-text-body">There are </span>
-              <span className="header-text-number">{this.props.messages.length}</span>
-              <span className="header-text-body">messages showing</span>
-            </p>
+            <span className="header-text-number">{this.props.messages.length}</span>
             {this.props.isSearching && <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} /> }
           </div>
           <Criteria colors={this.props.colors} onChange={this.props.searchMessages} isSearching={this.props.isSearching}/>
