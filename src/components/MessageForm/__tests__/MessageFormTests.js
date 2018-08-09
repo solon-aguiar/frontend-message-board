@@ -23,7 +23,12 @@ describe('MessageForm', () => {
   ];
   const addMessageResponse = () => Promise.resolve();
   const addMessage = jest.fn().mockImplementation(addMessageResponse);
-  const listMessages = jest.fn().mockImplementation();
+  const listMessages = jest.fn();
+
+  afterEach(() => {
+    addMessage.mockClear();
+    listMessages.mockReset();
+  });
 
   it('renders with subcomponents', () => {
     const enzymeWrapper = shallow(<MessageForm colors={colors} addMessage={addMessage} listMessages={listMessages} isAddingMessage={false} />);

@@ -4,7 +4,7 @@ import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
 import Header from '../../components/Header';
 import MessageForm from '../../components/MessageForm';
-import MessageSearch from '../../components/MessageSearch';
+import Search from '../../components/Search';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class App extends Component {
           <div className="cgmxdsh">
             <Header isLoading={colors.listing || messages.listing || messages.adding || messages.searching} />
             <MessageForm isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} listMessages={this.props.listMessages} />
-            <MessageSearch colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} />
+            <Search colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} />
           </div>
         </main>
         <footer role="contentinfo" className="c1tr6g77">
