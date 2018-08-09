@@ -2,7 +2,7 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk'
-import { LISTING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../../constants/ActionTypes';
+import { SEARCHING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../../constants/ActionTypes';
 import * as actions from '../../actions/ColorActions'
 
 const middlewares = [thunk];
@@ -35,7 +35,7 @@ describe('ColorActions', () => {
       fetch.mockResponse(JSON.stringify(colors));
 
       const expectedActions = [
-        { type: LISTING_COLORS },
+        { type: SEARCHING_COLORS },
         { type: COLORS_LOADED, payload: colors }
       ];
       const store = mockStore({})
@@ -50,7 +50,7 @@ describe('ColorActions', () => {
       fetch.mockReject(error);
 
       const expectedActions = [
-        { type: LISTING_COLORS },
+        { type: SEARCHING_COLORS },
         { type: COLORS_LOAD_ERROR, payload: error, error: true }
       ];
       const store = mockStore({})

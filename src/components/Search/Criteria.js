@@ -77,5 +77,6 @@ Criteria.propsTypes = {
   })).isRequired,
   onChange: PropTypes.func.isRequired,
   isSearching: PropTypes.bool.isRequired,
-  isAdding: PropTypes.bool.isRequired
+  isAdding: PropTypes.bool.isRequired,
+  abortExistingRequest: PropTypes.func
 };

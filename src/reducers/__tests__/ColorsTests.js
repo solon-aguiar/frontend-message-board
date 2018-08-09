@@ -1,7 +1,7 @@
 'use strict';
 
 import reducer from '../../reducers/Colors';
-import { LISTING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../../constants/ActionTypes';
+import { SEARCHING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../../constants/ActionTypes';
 import Immutable from 'immutable';
 
 describe('Colors reducer', () => {
@@ -9,29 +9,29 @@ describe('Colors reducer', () => {
 
   it('returns the initial state for undefined state', () => {
     expect(reducer(undefined, {})).toEqual(
-      Immutable.Map({"listing": false, "colors": Immutable.List()})
+      Immutable.Map({"searching": false, "colors": Immutable.List()})
     );
   });
 
-  it('marks as listing for LISTING_COLORS action', () => {
+  it('marks as searching for SEARCHING_COLORS action', () => {
     const action = {
-      type: LISTING_COLORS
+      type: SEARCHING_COLORS
     };
 
     expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"listing": true, "colors": Immutable.List()})
+      Immutable.Map({"searching": true, "colors": Immutable.List()})
     );
   });
 
-  it('marks as listing for LISTING_COLORS action for an existing state', () => {
+  it('marks as listing for SEARCHING_COLORS action for an existing state', () => {
     const action = {
-      type: LISTING_COLORS
+      type: SEARCHING_COLORS
     };
 
-    const existingState = Immutable.Map({"listing": false, "colors": Immutable.List(colors)})
+    const existingState = Immutable.Map({"searching": false, "colors": Immutable.List(colors)})
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"listing": true, "colors": Immutable.List(colors)})
+      Immutable.Map({"searching": true, "colors": Immutable.List(colors)})
     );
   });
 
@@ -42,13 +42,13 @@ describe('Colors reducer', () => {
     };
 
     expect(reducer(undefined, action)).toEqual(
-      Immutable.Map({"listing": false, "colors": Immutable.List(colors)})
+      Immutable.Map({"searching": false, "colors": Immutable.List(colors)})
     );
   });
 
   it('sets an error and marks loading as false a COLORS_LOAD_ERROR action', () => {
     const error = new Error("ugly error");
-    const existingState = Immutable.Map({"listing": true, "colors": Immutable.List(colors)})
+    const existingState = Immutable.Map({"searching": true, "colors": Immutable.List(colors)})
 
     const action = {
       type: COLORS_LOAD_ERROR,
@@ -57,12 +57,12 @@ describe('Colors reducer', () => {
     };
 
     expect(reducer(existingState, action)).toEqual(
-      Immutable.Map({"listing": false, "colors": Immutable.List(colors), "error": error})
+      Immutable.Map({"searching": false, "colors": Immutable.List(colors), "error": error})
     );
   });
 
   it('ignores the error for COLORS_LOAD_ERROR if there is no flag', () => {
-    const existingState = Immutable.Map({"listing": true, "colors": Immutable.List(colors)})
+    const existingState = Immutable.Map({"searching": true, "colors": Immutable.List(colors)})
 
     const action = {
       type: COLORS_LOAD_ERROR

@@ -46,7 +46,7 @@ describe('App', () => {
   });
 
   it('renders the three parts of the page with props', () => {
-    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false, abort: abortMock}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false, abort: abortMock}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
 
     expect(enzymeWrapper.find(PageBanner).exists()).toBe(true);
     expect(enzymeWrapper.find(Create).exists()).toBe(true);
@@ -58,7 +58,7 @@ describe('App', () => {
   });
 
   it('searches for messages and colors on start', () => {
-    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false,searching:false}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+    const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false,searching:false}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
 
     expect(searchMessagesMock.mock.calls.length).toBe(1);
     expect(searchMessagesMock.mock.calls[0]).toEqual([]);
@@ -69,17 +69,17 @@ describe('App', () => {
 
   describe('.PageBanner', () => {
     it('set loading if listing colors', () => {
-      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false}} colors={{colors:colors, listing: true}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false}} colors={{colors:colors, searching: true}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
       expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(true);
     });
 
     it('set loading if searching messages', () => {
-      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false,searching:true}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false,searching:true}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
       expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(true);
     });
 
     it('set loading if adding messages', () => {
-      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:true,searching:false}} colors={{colors:colors, listing: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
+      const enzymeWrapper = shallow(<App messages={{messages:messages, adding:true,searching:false}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} listColors={listColorsMock} createMessage={createMessageMock} />);
       expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(true);
     });
   });

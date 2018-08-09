@@ -10,27 +10,27 @@ import {
   MESSAGE_CREATED
 } from '../constants/ActionTypes';
 
-function searchingMessages(abort) {
+function searchingMessagesAction(abort) {
   return {
     type: SEARCHING_MESSAGES,
     payload: abort
   };
 }
 
-function creatingMessage() {
+function creatingMessageAction() {
   return {
     type: CREATING_MESSAGE
   };
 }
 
-function loadedMessages(messages) {
+function loadedMessagesAction(messages) {
   return {
     type: MESSAGES_LOADED,
     payload: messages
   };
 }
 
-function loadError(err) {
+function loadErrorAction(err) {
   return {
     type: MESSAGES_LOAD_ERROR,
     payload: err,
@@ -38,7 +38,7 @@ function loadError(err) {
   };
 }
 
-function creationError(err) {
+function creationErrorAction(err) {
   return {
     type: MESSAGE_CREATION_ERROR,
     payload: err,
@@ -46,7 +46,7 @@ function creationError(err) {
   };
 }
 
-function messageCreated() {
+function messageCreatedAction() {
   return {
     type: MESSAGE_CREATED
   };
@@ -54,23 +54,23 @@ function messageCreated() {
 
 function createMessage(content, color) {
   return dispatch => {
-    dispatch(creatingMessage());
+    dispatch(creatingMessageAction());
 
     return Messages.create(content, color)
-      .then(response => dispatch(messageCreated()))
-      .catch(err => dispatch(creationError(err)));
+      .then(response => dispatch(messageCreatedAction()))
+      .catch(err => dispatch(creationErrorAction(err)));
   }
 }
 
 function searchMessages(content, color) {
   return dispatch => {
     const abortController = new AbortController();
-    dispatch(searchingMessages(abortController));
+    dispatch(searchingMessagesAction(abortController));
 
     return Messages.get(content, color, abortController.signal)
       .then(response => response.json())
-      .then(body => dispatch(loadedMessages(body)))
-      .catch(err => dispatch(loadError(err)));
+      .then(body => dispatch(loadedMessagesAction(body)))
+      .catch(err => dispatch(loadErrorAction(err)));
   };
 }
 

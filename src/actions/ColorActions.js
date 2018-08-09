@@ -1,22 +1,22 @@
 'use strict';
 
 import Colors from '../resources/Colors';
-import { LISTING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../constants/ActionTypes';
+import { SEARCHING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../constants/ActionTypes';
 
-function listingColors() {
+function searchColorsAction() {
   return {
-    type: LISTING_COLORS
+    type: SEARCHING_COLORS
   };
 }
 
-function loadedColors(colors) {
+function loadedColorsAction(colors) {
   return {
     type: COLORS_LOADED,
     payload: colors
   };
 }
 
-function loadError(err) {
+function loadErrorAction(err) {
   return {
     type: COLORS_LOAD_ERROR,
     payload: err,
@@ -26,12 +26,12 @@ function loadError(err) {
 
 function listColors() {
   return dispatch => {
-    dispatch(listingColors());
+    dispatch(searchColorsAction());
 
     return Colors.get()
       .then(response => response.json())
-      .then(body => dispatch(loadedColors(body)))
-      .catch(err => dispatch(loadError(err)));
+      .then(body => dispatch(loadedColorsAction(body)))
+      .catch(err => dispatch(loadErrorAction(err)));
   };
 }
 

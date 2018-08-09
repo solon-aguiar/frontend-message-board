@@ -25,8 +25,8 @@ export class App extends Component {
       <div id="app">
         <main className="main">
           <div className="container">
-            <PageBanner isLoading={colors.listing || messages.adding || messages.searching} />
-            <Create isReady={!colors.listing} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
+            <PageBanner isLoading={colors.searching || messages.adding || messages.searching} />
+            <Create isReady={!colors.searching} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
             <Search abortExistingRequest={messages.abort} colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
           </div>
         </main>
@@ -50,7 +50,7 @@ App.propsTypes = {
     })).isRequired
   }).isRequired,
   colors: PropTypes.shape({
-    listing: PropTypes.bool.isRequired,
+    searching: PropTypes.bool.isRequired,
     colors: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

@@ -1,10 +1,10 @@
 'use strict';
 
-import { LISTING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../constants/ActionTypes';
+import { SEARCHING_COLORS, COLORS_LOADED, COLORS_LOAD_ERROR } from '../constants/ActionTypes';
 import Immutable, { fromJS } from 'immutable';
 
 const initialState = fromJS({
-  'listing': false,
+  'searching': false,
   'colors': []
 });
 
@@ -12,8 +12,8 @@ export default function colors(state = initialState, action) {
   const isError = action.error;
 
   switch (action.type) {
-    case LISTING_COLORS:
-      return state.set('listing', true);
+    case SEARCHING_COLORS:
+      return state.set('searching', true);
     case COLORS_LOADED:
       const colors = action.payload;
 
@@ -23,7 +23,7 @@ export default function colors(state = initialState, action) {
         return state
           .merge({
             'error': action.payload,
-            'listing': false
+            'searching': false
           });
       } else {
         return state;
