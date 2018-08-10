@@ -1,10 +1,14 @@
+'use strict';
+
 import './styles.css';
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
 import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
+
 import PageBanner from '../../components/PageBanner';
 import Create from '../../components/Create';
 import Search from '../../components/Search';
@@ -15,7 +19,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.props.listColors();
+    this.props.searchColors();
     this.props.searchMessages();
   }
 
@@ -26,8 +30,20 @@ export class App extends Component {
         <main className="main">
           <div className="container">
             <PageBanner isLoading={colors.searching || messages.adding || messages.searching} />
-            <Create isReady={!colors.searching} colors={colors.colors} isAddingMessage={messages.adding} addMessage={this.props.createMessage} />
-            <Search abortExistingRequest={messages.abort} colors={colors.colors} messages={messages.messages} searchMessages={this.props.searchMessages} isSearching={messages.searching} isAdding={messages.adding} />
+            <Create
+              isReady={!colors.searching}
+              colors={colors.colors}
+              isAddingMessage={messages.adding}
+              addMessage={this.props.createMessage} 
+            />
+            <Search
+              abortExistingRequest={messages.abort}
+              colors={colors.colors}
+              messages={messages.messages}
+              searchMessages={this.props.searchMessages}
+              isSearching={messages.searching}
+              isAdding={messages.adding}
+            />
           </div>
         </main>
         <footer role="contentinfo" className="footer">
@@ -58,7 +74,7 @@ App.propsTypes = {
     })).isRequired
   }).isRequired,
   searchMessages: PropTypes.func.isRequired,
-  listColors: PropTypes.func.isRequired,
+  searchColors: PropTypes.func.isRequired,
   createMessage: PropTypes.func.isRequired
 };
 
@@ -71,7 +87,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    listColors: () => dispatch(ColorActions.listColors()),
+    searchColors: () => dispatch(ColorActions.searchColors()),
     createMessage: (content, color) => dispatch(MessageActions.createMessage(content, color)),
     searchMessages: (content, color) => dispatch(MessageActions.searchMessages(content, color))
   };

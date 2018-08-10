@@ -20,7 +20,7 @@ describe('HttpService', () => {
       });
 
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`my-url/messages?q=true`);
+      expect(fetch.mock.calls[0]).toEqual([`my-url/messages?q=true`, {}]);
     });
 
     it('ignores queryParameters in the url if not present', () => {
@@ -33,7 +33,20 @@ describe('HttpService', () => {
       });
 
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual('my-url/messages');
+      expect(fetch.mock.calls[0]).toEqual(['my-url/messages', {}]);
+    });
+
+    it('ignores empty queryParameters in the url', () => {
+      fetch.mockResponse(mockResponse);
+
+      const subject = new HttpService('my-url');
+
+      subject.get('/messages', '').then(response => {
+        expect(response.body).toEqual(mockResponse);
+      });
+
+      expect(fetch.mock.calls.length).toEqual(1);
+      expect(fetch.mock.calls[0]).toEqual(['my-url/messages', {}]);
     });
 
     it('uses a fetch signal if provided', () => {

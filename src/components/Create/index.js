@@ -1,3 +1,5 @@
+'use strict'
+
 import './styles.css';
 
 import React, { Component } from 'react';
@@ -85,7 +87,7 @@ export default class Create extends Component {
               </div>
 
               <div>
-                <label className="message-content-field-label" htmlFor="color">Color</label>
+                <label className="message-content-field-label">Color</label>
                 <DropdownList options={colorOptions} onChange={this.onColorSelected} selected={this.state.messageColor} />
               </div>
             </div>

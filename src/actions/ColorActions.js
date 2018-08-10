@@ -24,7 +24,7 @@ function loadErrorAction(err) {
   };
 }
 
-function listColors() {
+function searchColors() {
   return dispatch => {
     dispatch(searchColorsAction());
 
@@ -35,4 +35,4 @@ function listColors() {
   };
 }
 
-export {listColors};
+export {searchColors};

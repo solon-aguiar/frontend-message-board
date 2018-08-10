@@ -13,7 +13,7 @@ describe('ColorActions', () => {
     fetch.resetMocks();
   });
 
-  describe('listColors', () => {
+  describe('searchColors', () => {
     it('dispatches all the colors in successfull color load', () => {
       const colors = [
         {
@@ -40,7 +40,7 @@ describe('ColorActions', () => {
       ];
       const store = mockStore({})
 
-      return store.dispatch(actions.listColors()).then(() => {
+      return store.dispatch(actions.searchColors()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
       });
     });
@@ -55,7 +55,7 @@ describe('ColorActions', () => {
       ];
       const store = mockStore({})
 
-      return store.dispatch(actions.listColors()).then(() => {
+      return store.dispatch(actions.searchColors()).then(() => {
         expect(store.getActions()).toEqual(expectedActions)
       });
     });
