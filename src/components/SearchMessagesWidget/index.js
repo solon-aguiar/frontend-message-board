@@ -114,7 +114,7 @@ SearchMessagesWidget.propsTypes = {
     color: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired
   })).isRequired,
-  LoadingIndicator: PropTypes.func.isRequired,
+  searchMessages: PropTypes.func.isRequired,
   isSearching: PropTypes.bool.isRequired,
   isAdding: PropTypes.bool.isRequired,
   abortExistingRequest: PropTypes.func,
