@@ -48,7 +48,7 @@ export class App extends Component {
         </main>
         <footer role="contentinfo" className="footer">
           <p>Made by Solon</p>
-          <img className="avatar" src="https://media.giphy.com/media/3ornk57KwDXf81rjWM/giphy.gif" />
+          <img className="avatar" src="/assets/avatar.gif" />
         </footer>
       </div>
     );

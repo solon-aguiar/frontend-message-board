@@ -2,6 +2,7 @@ const merge = require('webpack-merge')
 const webpack = require('webpack')
 
 const common = require('./webpack.common.js')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = merge(common, {
   devtool: 'eval',
@@ -19,5 +20,5 @@ module.exports = merge(common, {
     }
   },
   mode: 'development',
-  plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()]
+  plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin(), new CopyWebpackPlugin([ { from: 'src/assets', to: 'assets' } ])]
 })
