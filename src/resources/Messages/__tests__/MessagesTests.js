@@ -10,7 +10,7 @@ describe('Messages', () => {
   const mockResponse = '{my-response: true}';
 
   describe('get', () => {
-    it('does not use query string when unecessary', () => {
+    it('always uses query string when getting messages', () => {
       fetch.mockResponse(mockResponse);
 
       Messages.get().then(response => {
@@ -18,7 +18,7 @@ describe('Messages', () => {
       });
       
       expect(fetch.mock.calls.length).toEqual(1);
-      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages`);
+      expect(fetch.mock.calls[0][0]).toEqual(`/api/messages?_sort=id&_order=desc`);
     });
 
     it('calls the HttpService with a text query if specified content', () => {

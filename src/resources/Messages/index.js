@@ -9,7 +9,7 @@ class Messages {
   }
 
   get(searchText = undefined, color = undefined, abort = undefined) {
-    let queryString = (!!searchText || !!color) ? "_sort=id&_order=desc" : undefined;
+    let queryString = "_sort=id&_order=desc";
 
     if (!!searchText) {
       queryString += `&q=${searchText}`;
