@@ -40,14 +40,14 @@ export default class Search extends Component {
 
     this.setState({
       searchQuery: content,
-      triggeredQuerySearch: true
+      triggeredQuerySearch: !!content
     });
   }
 
   onColorSelected(color) {
     this.setState({
       selectedColor: color,
-      triggeredQuerySearch: false
+      triggeredQuerySearch: !!this.state.searchQuery
     });
   }
 
@@ -69,10 +69,6 @@ export default class Search extends Component {
     }
   }
 
-  isSearchQuery() {
-    return this.state.triggeredQuerySearch || !!this.state.searchQuery;
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (this.changedSearchParameters(prevProps, prevState) || this.createdNewMessages(prevProps)) {
       this.abortExistingSearches();
@@ -91,7 +87,7 @@ export default class Search extends Component {
               label={"Search"}
               content={this.state.searchQuery}
               onChange={this.handleSearchQueryChange}
-              showLoading={this.props.isSearching && this.isSearchQuery()}
+              showLoading={this.props.isSearching && this.state.triggeredQuerySearch}
               showError={false}
             />
             <MessageColorInput

@@ -102,12 +102,29 @@ describe('Search', () => {
     expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(true);
   });
 
-  it('does not show loading indicator if searching with colors', () => {
+  it('does not show loading indicator if searching only with colors', () => {
     const enzymeWrapper = shallow(<Search colors={colors} searchMessages={searchMessagesMock} isSearching />);
     enzymeWrapper.find(MessageColorInput).prop('onSelect')(searchColor);
     enzymeWrapper.update();
 
     expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
+  });
+
+  it('shows loading indicator if searching with text and with colors', () => {
+    const enzymeWrapper = shallow(<Search colors={colors} searchMessages={searchMessagesMock} isSearching />);
+    enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:searchQuery}});
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(true);
+
+    enzymeWrapper.setProps({isSearching:false});
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
+
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(searchColor);
+    enzymeWrapper.setProps({isSearching:true});
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(true);
   });
 
   it('records the search query on input', () => {

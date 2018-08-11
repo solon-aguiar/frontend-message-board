@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { App } from '../../App';
 import PageBanner from '../../../components/PageBanner';
-import Create from '../../../components/Create';
+import CreateMessageWidget from '../../../components/CreateMessageWidget';
 import Search from '../../../components/Search';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -49,11 +49,11 @@ describe('App', () => {
     const enzymeWrapper = shallow(<App messages={{messages:messages, adding:false, searching:false, abort: abortMock}} colors={{colors:colors, searching: false}} searchMessages={searchMessagesMock} searchColors={searchColorsMock} createMessage={createMessageMock} />);
 
     expect(enzymeWrapper.find(PageBanner).exists()).toBe(true);
-    expect(enzymeWrapper.find(Create).exists()).toBe(true);
+    expect(enzymeWrapper.find(CreateMessageWidget).exists()).toBe(true);
     expect(enzymeWrapper.find(Search).exists()).toBe(true);
 
     expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(false);
-    expect(enzymeWrapper.find(Create).props()).toEqual({isReady: true, colors: colors, isAddingMessage:false, addMessage:createMessageMock});
+    expect(enzymeWrapper.find(CreateMessageWidget).props()).toEqual({isReady: true, colors: colors, isAddingMessage:false, addMessage:createMessageMock});
     expect(enzymeWrapper.find(Search).props()).toEqual({messages: messages, colors: colors, isSearching:false, isAdding:false, searchMessages:searchMessagesMock, abortExistingRequest: abortMock});
   });
 

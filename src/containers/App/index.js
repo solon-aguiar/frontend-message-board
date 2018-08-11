@@ -10,7 +10,7 @@ import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
 
 import PageBanner from '../../components/PageBanner';
-import Create from '../../components/Create';
+import CreateMessageWidget from '../../components/CreateMessageWidget';
 import Search from '../../components/Search';
 
 export class App extends Component {
@@ -30,7 +30,7 @@ export class App extends Component {
         <main className="main">
           <div className="container">
             <PageBanner isLoading={colors.searching || messages.adding || messages.searching} />
-            <Create
+            <CreateMessageWidget
               isReady={!colors.searching}
               colors={colors.colors}
               isAddingMessage={messages.adding}

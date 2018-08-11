@@ -9,7 +9,7 @@ import ClinikoButton from '../ClinikoButton';
 import MessageContentInput from '../MessageContentInput';
 import MessageColorInput from '../MessageColorInput';
 
-export default class Create extends Component {
+export default class CreateMessageWidget extends Component {
   constructor(props) {
     super(props);
 
@@ -103,7 +103,7 @@ export default class Create extends Component {
   }
 }
 
-Create.propsTypes = {
+CreateMessageWidget.propsTypes = {
   colors: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
