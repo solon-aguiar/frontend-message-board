@@ -11,36 +11,51 @@ describe('ClinikoButton', () => {
   const onClickMock = jest.fn();
   const buttonText = "Post Message";
 
-  it('renders disabled if specified', () => {
-    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
-    expect(enzymeWrapper.find('button').prop('disabled')).toBe(true);
+  describe('when showing the loading indicator', () => {
+    it('hides the text', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+      expect(enzymeWrapper.find('span').prop('style')).toEqual({opacity: 0});
+    });
 
-    const anotherEnzymeWrapper = shallow(<ClinikoButton disabled={false} onClick={onClickMock} showLoadingIndicator text={buttonText} />);
-    expect(anotherEnzymeWrapper.find('button').prop('disabled')).toBe(false);
+    it('uses the LoadingIndicator', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+
+      expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
+      expect(enzymeWrapper.find(LoadingIndicator).prop('cssClass')).toEqual("internal-loading-indicator-center");
+    });
   });
 
-  it('shows loading indicator if specified', () => {
-    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+  describe('when not showing the loading indicator', () => {
+    it('does use the LoadingIndicator', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} text={buttonText} />);
 
-    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
-    expect(enzymeWrapper.find(LoadingIndicator).prop('cssClass')).toEqual("internal-loading-indicator-center");
+      expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
+    });
+
+    it('displays the text', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} text={buttonText} />);
+
+      expect(enzymeWrapper.find('span').text()).toEqual(buttonText);
+      expect(enzymeWrapper.find('span').prop('style')).toEqual({opacity: 10});
+    });
   });
 
-  it('does not show loading indicator by default', () => {
-    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} text={buttonText} />);
+  describe('when disabled', () => {
+    it('renders the disabled button', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+      expect(enzymeWrapper.find('button').prop('disabled')).toBe(true);
 
-    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
+      const anotherEnzymeWrapper = shallow(<ClinikoButton disabled={false} onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+      expect(anotherEnzymeWrapper.find('button').prop('disabled')).toBe(false);
+    });
   });
 
-  it('displays the text', () => {
-    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
-    expect(enzymeWrapper.find('span').text()).toEqual(buttonText);
-  });
+  describe('when enable', () => {
+    it('triggers the callback onClick if enabled', () => {
+      const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
 
-  it('triggers the callback onClick if enabled', () => {
-    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
-
-    enzymeWrapper.find('button').prop('onClick')();
-    expect(onClickMock.mock.calls.length).toBe(1);
+      enzymeWrapper.find('button').prop('onClick')();
+      expect(onClickMock.mock.calls.length).toBe(1);
+    });
   });
 });

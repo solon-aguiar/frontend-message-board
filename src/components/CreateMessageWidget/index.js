@@ -94,7 +94,7 @@ export default class CreateMessageWidget extends Component {
                 selected={this.state.messageColor}
               />
             </div>
-            <ClinikoButton disabled={!this.canSubmit()} onClick={this.onSubmit} showLoadingIndicator={this.props.isAddingMessage} text={"Post Message"} />
+            <ClinikoButton disabled={!this.canSubmit() || !!this.props.isAddingMessage} onClick={this.onSubmit} showLoadingIndicator={this.props.isAddingMessage} text={"Post Message"} />
           </div>
         </fieldset>
       </div>

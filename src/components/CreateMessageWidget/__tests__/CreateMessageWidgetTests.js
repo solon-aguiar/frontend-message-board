@@ -65,7 +65,6 @@ describe('CreateMessageWidget', () => {
       const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
       expect(enzymeWrapper.find(ClinikoButton).prop('disabled')).toEqual(true);
     });
-
   });
 
   describe('behavior', () => {
@@ -144,6 +143,11 @@ describe('CreateMessageWidget', () => {
         const anotherEnzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} isAddingMessage={false} />);
         expect(anotherEnzymeWrapper.find(ClinikoButton).prop('showLoadingIndicator')).toEqual(false);
         expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toEqual(false);
+      });
+
+      it('disables the submit button when adding messages', () => {
+        const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} isAddingMessage />);
+        expect(enzymeWrapper.find(ClinikoButton).prop('disabled')).toEqual(true);
       });
     });
 
