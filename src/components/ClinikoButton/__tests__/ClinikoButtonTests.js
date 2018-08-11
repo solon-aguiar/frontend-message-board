@@ -21,11 +21,15 @@ describe('ClinikoButton', () => {
 
   it('shows loading indicator if specified', () => {
     const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator text={buttonText} />);
+
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
     expect(enzymeWrapper.find(LoadingIndicator).prop('cssClass')).toEqual("internal-loading-indicator-center");
+  });
 
-    const anotherEnzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} showLoadingIndicator={false} text={buttonText} />);
-    expect(anotherEnzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
+  it('does not show loading indicator by default', () => {
+    const enzymeWrapper = shallow(<ClinikoButton disabled onClick={onClickMock} text={buttonText} />);
+
+    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
   });
 
   it('displays the text', () => {

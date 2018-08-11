@@ -23,4 +23,12 @@ describe('PageBanner', () => {
     expect(enzymeWrapper.find('h1').text()).toBe("Message board");
     expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
   });
+
+  it('renders without loading indicator by default', () => {
+    const enzymeWrapper = shallow(<PageBanner />);
+
+    expect(enzymeWrapper.find('header').hasClass('header')).toBe(true);
+    expect(enzymeWrapper.find('h1').text()).toBe("Message board");
+    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
+  });
 });

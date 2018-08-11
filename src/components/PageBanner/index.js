@@ -12,7 +12,7 @@ export default function PageBanner(props) {
     <header className="header">
       <div className="header-title-container">
         <h1 className="header-title">Message board</h1>
-        {props.isLoading && (
+        {!!props.isLoading && (
           <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} />
         )}
       </div>
@@ -22,5 +22,9 @@ export default function PageBanner(props) {
 }
 
 PageBanner.propsTypes = {
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool
+};
+
+PageBanner.defaultProps = {
+  isLoading: false
 };

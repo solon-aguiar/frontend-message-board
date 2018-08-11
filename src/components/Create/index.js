@@ -5,9 +5,9 @@ import './styles.css';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import LoadingIndicator from '../LoadingIndicator';
-import DropdownList from '../DropdownList';
 import ClinikoButton from '../ClinikoButton';
+import MessageContentInput from '../MessageContentInput';
+import MessageColorInput from '../MessageColorInput';
 
 export default class Create extends Component {
   constructor(props) {
@@ -65,31 +65,35 @@ export default class Create extends Component {
   }
 
   canSubmit() {
-    return !this.state.hasMessageContentError && !!this.state.messageColor;
+    return !this.state.hasMessageContentError && !!this.state.messageContent;
   }
 
   render() {
-    const { colors } = this.props;
-    const colorOptions = [{name: 'Choose a color...', value: '', id:'fake-id'}].concat(colors);
-    
     return (
       <div className="message-form">
         <fieldset className="fields">
           <legend className="legend">New message</legend>
           <p className="toltip">Add a message and optionally pick a color.</p>
+
           <div className="fields-container">
             <div className="message-content-container">
-              <div className="message-content-field-container touched">
-                <label className="message-content-field-label">Message</label>
-                <input id="message" className="message-content" value={this.state.messageContent} onChange={this.handleMessageContentChange} onBlur={this.onBlur}/>
+              <MessageContentInput
+                label={"Message"}
+                content={this.state.messageContent}
+                onChange={this.handleMessageContentChange}
+                onBlur={this.onBlur}
+                showLoading={false}
+                showError={this.state.hasMessageContentError}
+                errorMessage={"A message is required"}
+              />
 
-                {this.state.hasMessageContentError && <div className="error-message" role="alert">A message is required</div>}
-              </div>
-
-              <div>
-                <label className="message-content-field-label">Color</label>
-                <DropdownList options={colorOptions} onChange={this.onColorSelected} selected={this.state.messageColor} />
-              </div>
+              <MessageColorInput
+                defaultOption={'Choose a color...'}
+                label={"Color"}
+                options={this.props.colors}
+                onSelect={this.onColorSelected}
+                selected={this.state.messageColor}
+              />
             </div>
             <ClinikoButton disabled={!this.canSubmit()} onClick={this.onSubmit} showLoadingIndicator={this.props.isAddingMessage} text={"Post Message"} />
           </div>

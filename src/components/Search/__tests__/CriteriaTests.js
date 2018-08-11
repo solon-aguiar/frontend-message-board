@@ -3,12 +3,14 @@ import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 
 import Criteria from '../../Search/Criteria';
-import DropdownList from '../../DropdownList';
-import LoadingIndicator from '../../LoadingIndicator';
+import MessageContentInput from '../../MessageContentInput';
+import MessageColorInput from '../../MessageColorInput';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Criteria', () => {
+  const searchQuery = 'new message content';
+  const searchColor = 'rainbow';
   const colors = [
     {
       id: 1,
@@ -32,58 +34,101 @@ describe('Criteria', () => {
   it('renders with subcomponents', () => {
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
 
-    expect(enzymeWrapper.find(DropdownList).exists()).toBe(true);
-    expect(enzymeWrapper.find('input').exists()).toBe(true);
-    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(false);
+    expect(enzymeWrapper.find(MessageContentInput).exists()).toBe(true);
+    expect(enzymeWrapper.find(MessageColorInput).exists()).toBe(true);
   });
 
-  it('adds a default all colors option', () => {
+  it('shows the colors as options', () => {
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
 
-    const optionsWithDefault = [{name: 'All colors', value: '', id:'fake-id'}].concat(colors);
-    expect(enzymeWrapper.find(DropdownList).prop('options')).toEqual(optionsWithDefault);
+    expect(enzymeWrapper.find(MessageColorInput).prop('options')).toEqual(colors);
+    expect(enzymeWrapper.find(MessageColorInput).prop('label')).toEqual('Filter');
   });
 
-  it('shows LoadingIndicator if searching with text', () => {
+  it('displays the correct default selected color', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+
+    expect(enzymeWrapper.find(MessageColorInput).prop('defaultOption')).toEqual('All colors');
+  });
+
+  it('displays the color options with proper styles', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+
+    expect(enzymeWrapper.find(MessageColorInput).prop('style')).toEqual('search-color');
+  });
+
+  it('shows an empty message as message content', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('content')).toEqual('');
+    expect(enzymeWrapper.find(MessageContentInput).prop('label')).toEqual('Search');
+  });
+
+  it('shows loading indicator if searching with text', () => {
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
-    enzymeWrapper.setState({searchQuery: "message"});
+    enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:searchQuery}});
+    enzymeWrapper.update();
 
-    expect(enzymeWrapper.find(LoadingIndicator).exists()).toBe(true);
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(true);
   });
 
-  it('changes state on input changes', () => {
-    const searchQuery = 'new message content';
+  it('does not show loading indicator if searching with colors', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(searchColor);
+    enzymeWrapper.update();
 
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
+  });
+
+  it('records the search query on input', () => {
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
-    enzymeWrapper.find('input').prop('onChange')({target:{value:searchQuery}});
+    enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:searchQuery}});
 
     expect(enzymeWrapper.state('searchQuery')).toEqual(searchQuery);
   });
 
-  it('changes state on color changes', () => {
-    const newColor = 'rainbow';
-
+  it('displays the current message content on the input', () => {
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
-    enzymeWrapper.find(DropdownList).prop('onChange')(newColor);
+    enzymeWrapper.setState({searchQuery});
 
-    expect(enzymeWrapper.state('selectedColor')).toEqual(newColor);
+    expect(enzymeWrapper.find(MessageContentInput).prop('content')).toEqual(searchQuery);
   });
 
-  it('triggers search on state changes', () => {
-    const searchQuery = 'new message content';
+  it('records the color on selection', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(searchColor);
+
+    expect(enzymeWrapper.state('selectedColor')).toEqual(searchColor);
+  });
+
+  it('displays the selected color on the options', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} />);
+    enzymeWrapper.setState({selectedColor: searchColor});
+
+    expect(enzymeWrapper.find(MessageColorInput).prop('selected')).toEqual(searchColor);
+  });
+
+  it('triggers new search on query', () => {
+    const myQuery = 'abc';
 
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
-    enzymeWrapper.setState({searchQuery: searchQuery});
+    enzymeWrapper.setState({searchQuery: myQuery});
 
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, ""]);
+    expect(onChangeMock.mock.calls[0]).toEqual([myQuery, ""]);
+  });
+
+  it('triggers new search on color selection', () => {
+    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
+    enzymeWrapper.setState({selectedColor: searchColor});
+
+    expect(onChangeMock.mock.calls.length).toBe(1);
+    expect(onChangeMock.mock.calls[0]).toEqual(["", searchColor]);
   });
 
   it('aborts existing request and triggers new request on search criteria change', () => {
-    const searchQuery = 'new message content';
-
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching abortExistingRequest={{abort: abortRequestMock}}/>);
-    enzymeWrapper.setState({searchQuery: searchQuery});
+    enzymeWrapper.setState({searchQuery});
 
     expect(abortRequestMock.mock.calls.length).toBe(1);
   });
@@ -97,8 +142,6 @@ describe('Criteria', () => {
   });
 
   it('aborts existing request and triggers new request on new messages added', () => {
-    const searchQuery = 'new message content';
-
     const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching isAdding abortExistingRequest={{abort: abortRequestMock}}/>);
     enzymeWrapper.setProps({isAdding: false});
 
@@ -107,19 +150,10 @@ describe('Criteria', () => {
     expect(onChangeMock.mock.calls[0]).toEqual(["", ""]);
   });
 
-  it('searches with color and content', () => {
+  it('encodes the URI for the parameters', () => {
     const searchQuery = 'new message content';
-    const newColor = 'rainbow';
+    const encodedSearchQuery = 'new%20message%20content';
 
-    const enzymeWrapper = shallow(<Criteria colors={colors} onChange={onChangeMock} isSearching />);
-    enzymeWrapper.setState({searchQuery: searchQuery, selectedColor:newColor});
-
-    expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, newColor]);
-  });
-
-  it('encodes the URI for the color', () => {
-    const searchQuery = 'new message content';
     const colorSelected = '#2795D9';
     const encodedColor = '%232795D9';
 
@@ -127,6 +161,6 @@ describe('Criteria', () => {
     enzymeWrapper.setState({searchQuery: searchQuery, selectedColor:colorSelected});
 
     expect(onChangeMock.mock.calls.length).toBe(1);
-    expect(onChangeMock.mock.calls[0]).toEqual([searchQuery, encodedColor]);
+    expect(onChangeMock.mock.calls[0]).toEqual([encodedSearchQuery, encodedColor]);
   });  
 });

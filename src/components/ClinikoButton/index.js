@@ -10,7 +10,7 @@ import LoadingIndicator from '../LoadingIndicator';
 export default function ClinikoButton(props) {
   return(
     <button className="message-content-submit message-submit-button" disabled={props.disabled} type="submit" onClick={props.onClick}>
-      {props.showLoadingIndicator && <LoadingIndicator cssClass={"internal-loading-indicator-center"} /> }
+      {!!props.showLoadingIndicator && <LoadingIndicator cssClass={"internal-loading-indicator-center"} /> }
       <span style={{opacity: 10}}>{props.text}</span>
     </button>
   );

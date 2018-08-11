@@ -16,7 +16,7 @@ export default function Search(props) {
         <div className="info-panel">
           <h2 className="header-text">Messages</h2>
           <span className="header-text-number">{props.messages.length}</span>
-          {props.isSearching && <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} /> }
+          {!!props.isSearching && <LoadingIndicator background={true} cssClass={"companion-loading-indicator"} /> }
         </div>
         <Criteria abortExistingRequest={props.abortExistingRequest} colors={props.colors} onChange={props.searchMessages} isSearching={props.isSearching} isAdding={props.isAdding} />
       </header>

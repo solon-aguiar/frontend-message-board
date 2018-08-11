@@ -1,0 +1,170 @@
+.input-content-container {
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  margin-right: 0.8rem;
+}
+
+@media screen and (min-width: 32em) {
+  .input-content-container {
+    margin-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .input-content-container {
+    margin-right: 1rem;
+  }
+}
+
+.label {
+  display: block;
+  font-weight: 400;
+  color: #424242;
+}
+
+.input-div {
+  position: relative;
+}
+
+.input-component {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #707070;
+  position: relative;
+  width: 100%;
+  padding-right: 3.2rem;
+}
+
+@media screen and (min-width: 32em) {
+  .input-component {
+    padding-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-top: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+    padding-bottom: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .input-component {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.input-component[type='search']::-webkit-search-cancel-button,
+.input-component[type='search']::-webkit-search-decoration,
+.input-component[type='search']::-webkit-search-results-button,
+.input-component[type='search']::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+@media screen and (min-width: 32em) {
+  .input-component {
+    padding-right: calc(3.2rem + 0.7999999999999998 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .input-component {
+    padding-right: 4rem;
+  }
+}
+
+.error-message {
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  margin-top: 0.8rem;
+  position: relative;
+  border-radius: 4px;
+  color: #fff;
+  display: none;
+  text-align: center;
+}
+
+@media screen and (min-width: 32em) {
+  .error-message {
+    padding-right: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-left: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+    padding-top: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+    padding-bottom: calc(0.4rem + 0.09999999999999998 * (100vw - 32rem) / 28);
+    margin-top: calc(0.8rem + 0.19999999999999996 * (100vw - 32rem) / 28);
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .error-message {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
+.error-message:after {
+  position: absolute;
+  border: solid transparent;
+  content: ' ';
+  top: auto;
+  left: 50%;
+  height: 0;
+  width: 0;
+  margin: 0;
+  border-color: transparent;
+  border-width: 0.3125rem;
+  pointer-events: none;
+  bottom: 100%;
+  border-bottom-color: red;
+  margin-left: -0.3125rem;
+}
+
+.touched .error-message {
+  display: block;
+}
+
+.error .error-message {
+  background: red;
+}
+
+.error .error-message:after {
+  border-bottom-color: red;
+}
+
+.error-message,
+.warning .error-message {
+  background: orange;
+}
+
+.error-message:after,
+.warning .error-message:after {
+  border-bottom-color: orange;
+}
+
+.error-message,
+.error-message @media screen and (min-width:32em) {
+  text-align: left;
+}
+
+.input-content-container .error-message {
+  background: red;
+}
+
+.input-content-container .error-message:after {
+  border-bottom-color: red;
+}
+
+.touched {
+  display: block;
+}
+
+.touched .error-message {
+  display: block;
+}
