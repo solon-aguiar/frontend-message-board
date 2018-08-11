@@ -11,7 +11,7 @@ import * as ColorActions from '../../actions/ColorActions';
 
 import PageBanner from '../../components/PageBanner';
 import CreateMessageWidget from '../../components/CreateMessageWidget';
-import Search from '../../components/Search';
+import SearchMessagesWidget from '../../components/SearchMessagesWidget';
 
 export class App extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export class App extends Component {
               isAddingMessage={messages.adding}
               addMessage={this.props.createMessage} 
             />
-            <Search
+            <SearchMessagesWidget
               abortExistingRequest={messages.abort}
               colors={colors.colors}
               messages={messages.messages}

@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { App } from '../../App';
 import PageBanner from '../../../components/PageBanner';
 import CreateMessageWidget from '../../../components/CreateMessageWidget';
-import Search from '../../../components/Search';
+import SearchMessagesWidget from '../../../components/SearchMessagesWidget';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -50,11 +50,11 @@ describe('App', () => {
 
     expect(enzymeWrapper.find(PageBanner).exists()).toBe(true);
     expect(enzymeWrapper.find(CreateMessageWidget).exists()).toBe(true);
-    expect(enzymeWrapper.find(Search).exists()).toBe(true);
+    expect(enzymeWrapper.find(SearchMessagesWidget).exists()).toBe(true);
 
     expect(enzymeWrapper.find(PageBanner).prop('isLoading')).toBe(false);
     expect(enzymeWrapper.find(CreateMessageWidget).props()).toEqual({isReady: true, colors: colors, isAddingMessage:false, addMessage:createMessageMock});
-    expect(enzymeWrapper.find(Search).props()).toEqual({messages: messages, colors: colors, isSearching:false, isAdding:false, searchMessages:searchMessagesMock, abortExistingRequest: abortMock});
+    expect(enzymeWrapper.find(SearchMessagesWidget).props()).toEqual({messages: messages, colors: colors, isSearching:false, isAdding:false, searchMessages:searchMessagesMock, abortExistingRequest: abortMock});
   });
 
   it('searches for messages and colors on start', () => {

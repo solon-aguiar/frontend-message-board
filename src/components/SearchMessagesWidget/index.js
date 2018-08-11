@@ -21,7 +21,7 @@ function InfoPanel(props) {
   );
 }
 
-export default class Search extends Component {
+export default class SearchMessagesWidget extends Component {
   constructor(props) {
     super(props);
 
@@ -106,7 +106,7 @@ export default class Search extends Component {
   }
 }
 
-Search.propsTypes = {
+SearchMessagesWidget.propsTypes = {
   colors: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
