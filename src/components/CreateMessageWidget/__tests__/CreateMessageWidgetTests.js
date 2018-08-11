@@ -32,7 +32,7 @@ describe('CreateMessageWidget', () => {
     addMessageMock.mockClear();
   });
 
-  describe('appearance: ', () => {
+  describe('appearance', () => {
     it('shows the subcomponents', () => {
       const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
 
@@ -63,13 +63,12 @@ describe('CreateMessageWidget', () => {
 
     it('disables the submit button on start', () => {
       const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
-
       expect(enzymeWrapper.find(ClinikoButton).prop('disabled')).toEqual(true);
     });
 
   });
 
-  describe('behavior -', () => {
+  describe('behavior', () => {
     describe('when provided input', () => {
       it('displays the current message content', () => {
         const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
