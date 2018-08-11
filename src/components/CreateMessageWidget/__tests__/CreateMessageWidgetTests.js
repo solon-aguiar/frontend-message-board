@@ -22,6 +22,9 @@ describe('CreateMessageWidget', () => {
       name: 'Value 2'
     }
   ];
+  const inputMessage = 'new message content';
+  const selectedColor = 'rainbow';
+
   const addMessageResponse = () => Promise.resolve();
   const addMessageMock = jest.fn().mockImplementation(addMessageResponse);
 
@@ -67,8 +70,6 @@ describe('CreateMessageWidget', () => {
   });
 
   it('displays the current message content on the input', () => {
-    const inputMessage = 'new message content';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
     enzymeWrapper.setState({messageContent: inputMessage});
 
@@ -76,8 +77,6 @@ describe('CreateMessageWidget', () => {
   });
 
   it('records the message content on input', () => {
-    const inputMessage = 'new message content';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} isAddingMessage={true} />);
     enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:inputMessage}});
 
@@ -100,12 +99,10 @@ describe('CreateMessageWidget', () => {
   });
 
   it('records the message color on user selection', () => {
-    const newColor = 'rainbow';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
-    enzymeWrapper.find(MessageColorInput).prop('onSelect')(newColor);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(selectedColor);
 
-    expect(enzymeWrapper.state('messageColor')).toEqual(newColor);
+    expect(enzymeWrapper.state('messageColor')).toEqual(selectedColor);
   });
 
   it('shows error message for empty message content', () => {
@@ -139,12 +136,9 @@ describe('CreateMessageWidget', () => {
   });
 
   it('allows submission for valid data', () => {
-    const newColor = 'rainbow';
-    const inputMessage = 'new message content';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
     enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:inputMessage}});
-    enzymeWrapper.find(MessageColorInput).prop('onSelect')(newColor);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(selectedColor);
 
     expect(enzymeWrapper.instance().canSubmit()).toEqual(true);
 
@@ -153,24 +147,18 @@ describe('CreateMessageWidget', () => {
   });
 
   it('triggers the callback on submission', async () => {
-    const newColor = 'rainbow';
-    const inputMessage = 'new message content';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
     enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:inputMessage}});
-    enzymeWrapper.find(MessageColorInput).prop('onSelect')(newColor);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(selectedColor);
 
     enzymeWrapper.find(ClinikoButton).prop('onClick')();
     expect(addMessageMock.mock.calls.length).toBe(1);
   });
 
   it('resets the inputs on submission', async () => {
-    const newColor = 'rainbow';
-    const inputMessage = 'new message content';
-
     const enzymeWrapper = shallow(<CreateMessageWidget colors={colors} addMessage={addMessageMock} />);
     enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:inputMessage}});
-    enzymeWrapper.find(MessageColorInput).prop('onSelect')(newColor);
+    enzymeWrapper.find(MessageColorInput).prop('onSelect')(selectedColor);
 
     enzymeWrapper.find(ClinikoButton).prop('onClick')();
     await addMessageResponse
