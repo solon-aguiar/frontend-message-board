@@ -3,9 +3,9 @@ import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 
 import CreateMessageWidget from '../../CreateMessageWidget';
-import ClinikoButton from '../../ClinikoButton';
-import MessageContentInput from '../../MessageContentInput';
-import MessageColorInput from '../../MessageColorInput';
+import ClinikoButton from '../../../components/ClinikoButton';
+import MessageContentInput from '../../../components/MessageContentInput';
+import MessageColorInput from '../../../components/MessageColorInput';
 
 Enzyme.configure({ adapter: new Adapter() });
 

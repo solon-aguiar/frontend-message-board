@@ -3,10 +3,10 @@ import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16';
 
 import SearchMessagesWidget from '../../SearchMessagesWidget';
-import MessageContentInput from '../../MessageContentInput';
-import MessageColorInput from '../../MessageColorInput';
-import MessageList from '../../MessageList';
-import LoadingIndicator from '../../LoadingIndicator';
+import MessageContentInput from '../../../components/MessageContentInput';
+import MessageColorInput from '../../../components/MessageColorInput';
+import MessageList from '../../../components/MessageList';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 
 Enzyme.configure({ adapter: new Adapter() });
 

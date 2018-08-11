@@ -4,8 +4,8 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { App } from '../../App';
 import PageBanner from '../../../components/PageBanner';
-import CreateMessageWidget from '../../../components/CreateMessageWidget';
-import SearchMessagesWidget from '../../../components/SearchMessagesWidget';
+import CreateMessageWidget from '../../CreateMessageWidget';
+import SearchMessagesWidget from '../../SearchMessagesWidget';
 
 Enzyme.configure({ adapter: new Adapter() });
 

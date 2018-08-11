@@ -10,8 +10,8 @@ import * as MessageActions from '../../actions/MessageActions';
 import * as ColorActions from '../../actions/ColorActions';
 
 import PageBanner from '../../components/PageBanner';
-import CreateMessageWidget from '../../components/CreateMessageWidget';
-import SearchMessagesWidget from '../../components/SearchMessagesWidget';
+import CreateMessageWidget from '../CreateMessageWidget';
+import SearchMessagesWidget from '../SearchMessagesWidget';
 
 export class App extends Component {
   constructor(props) {

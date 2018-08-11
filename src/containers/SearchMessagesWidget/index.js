@@ -5,11 +5,11 @@ import './styles.css';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import DropdownList from '../DropdownList';
-import LoadingIndicator from '../LoadingIndicator';
-import MessageContentInput from '../MessageContentInput';
-import MessageColorInput from '../MessageColorInput';
-import MessageList from '../MessageList';
+import DropdownList from '../../components/DropdownList';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import MessageContentInput from '../../components/MessageContentInput';
+import MessageColorInput from '../../components/MessageColorInput';
+import MessageList from '../../components/MessageList';
 
 function InfoPanel(props) {
   return (

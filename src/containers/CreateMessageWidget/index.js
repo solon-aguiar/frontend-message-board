@@ -4,9 +4,9 @@ import './styles.css';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ClinikoButton from '../ClinikoButton';
-import MessageContentInput from '../MessageContentInput';
-import MessageColorInput from '../MessageColorInput';
+import ClinikoButton from '../../components/ClinikoButton';
+import MessageContentInput from '../../components/MessageContentInput';
+import MessageColorInput from '../../components/MessageColorInput';
 
 export default class CreateMessageWidget extends Component {
   constructor(props) {
