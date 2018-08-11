@@ -110,6 +110,20 @@ describe('SearchMessagesWidget', () => {
     expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
   });
 
+  it('does not show loading indicator for empty search query', () => {
+    const enzymeWrapper = shallow(<SearchMessagesWidget colors={colors} searchMessages={searchMessagesMock} isSearching />);
+    enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:''}});
+    enzymeWrapper.update();
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
+  });
+
+  it('does not show loading indicator for any search operation', () => {
+    const enzymeWrapper = shallow(<SearchMessagesWidget colors={colors} searchMessages={searchMessagesMock} isSearching />);
+
+    expect(enzymeWrapper.find(MessageContentInput).prop('showLoading')).toBe(false);
+  });
+
   it('shows loading indicator if searching with text and with colors', () => {
     const enzymeWrapper = shallow(<SearchMessagesWidget colors={colors} searchMessages={searchMessagesMock} isSearching />);
     enzymeWrapper.find(MessageContentInput).prop('onChange')({target:{value:searchQuery}});

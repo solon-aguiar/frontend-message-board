@@ -27,8 +27,7 @@ export default class SearchMessagesWidget extends Component {
 
     this.state = {
       selectedColor: '',
-      searchQuery: '',
-      triggeredQuerySearch: false
+      searchQuery: ''
     };
 
     this.onColorSelected = this.onColorSelected.bind(this);
@@ -39,15 +38,13 @@ export default class SearchMessagesWidget extends Component {
     const content = event.target.value;
 
     this.setState({
-      searchQuery: content,
-      triggeredQuerySearch: !!content
+      searchQuery: content
     });
   }
 
   onColorSelected(color) {
     this.setState({
-      selectedColor: color,
-      triggeredQuerySearch: !!this.state.searchQuery
+      selectedColor: color
     });
   }
 
@@ -87,7 +84,7 @@ export default class SearchMessagesWidget extends Component {
               label={"Search"}
               content={this.state.searchQuery}
               onChange={this.handleSearchQueryChange}
-              showLoading={this.props.isSearching && this.state.triggeredQuerySearch}
+              showLoading={this.props.isSearching && !!this.state.searchQuery}
               showError={false}
             />
             <MessageColorInput
