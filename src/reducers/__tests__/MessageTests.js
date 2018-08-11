@@ -7,7 +7,8 @@ import {
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
   MESSAGE_CREATION_ERROR,
-  MESSAGE_CREATED
+  MESSAGE_CREATED,
+  MESSAGES_REQUEST_ABORT
 } from '../../constants/ActionTypes';
 import Immutable from 'immutable';
 
@@ -81,16 +82,11 @@ describe('Messages reducer', () => {
     expect(reducer(existingState, action)).toEqual(existingState);
   });
 
-  it('does not change loading state for AbortError', () => {
-    const error = new Error("ugly error");
-    error.name = 'AbortError';
-
+  it('does not change state for MESSAGES_REQUEST_ABORT', () => {
     const existingState = Immutable.Map({"searching": true, "adding": false, "messages": Immutable.List(messages)})
 
     const action = {
-      type: MESSAGES_LOAD_ERROR,
-      payload: error,
-      error: true
+      type: MESSAGES_REQUEST_ABORT
     };
 
     expect(reducer(existingState, action)).toEqual(existingState);

@@ -6,7 +6,8 @@ import {
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
   MESSAGE_CREATION_ERROR,
-  MESSAGE_CREATED
+  MESSAGE_CREATED,
+  MESSAGES_REQUEST_ABORT
 } from '../constants/ActionTypes';
 import Immutable, { fromJS } from 'immutable';
 
@@ -51,6 +52,8 @@ export default function messages(state = initialState, action) {
       }
     case MESSAGE_CREATED:
       return state.set('adding', false);
+    case MESSAGES_REQUEST_ABORT:
+      return state;
     default:
       return state
   }

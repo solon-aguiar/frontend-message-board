@@ -14,7 +14,7 @@ describe('ColorActions', () => {
   });
 
   describe('searchColors', () => {
-    it('dispatches all the colors in successfull color load', () => {
+    it('dispatches SEARCHING_COLORS and COLORS_LOADED in successfull color load', () => {
       const colors = [
         {
           "name": "Blue",
@@ -45,7 +45,7 @@ describe('ColorActions', () => {
       });
     });
 
-    it('dispatches an error in case of failure', () => {
+    it('dispatches SEARCHING_COLORS and COLORS_LOAD_ERROR in case of failure', () => {
       const error = new Error("failed request");
       fetch.mockReject(error);
 

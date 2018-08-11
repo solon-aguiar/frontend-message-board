@@ -8,7 +8,8 @@ import {
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
   MESSAGE_CREATION_ERROR,
-  MESSAGE_CREATED
+  MESSAGE_CREATED,
+  MESSAGES_REQUEST_ABORT
 } from '../../constants/ActionTypes';
 import * as actions from '../../actions/MessageActions';
 
@@ -47,7 +48,7 @@ describe('MessageActions', () => {
       });
     });
 
-    it('dispatches an error in case of failure', () => {
+    it('dispatches CREATING_MESSAGE and MESSAGE_CREATION_ERROR in case of failure', () => {
       const error = new Error("failed request");
       fetch.mockReject(error);
 
@@ -64,7 +65,7 @@ describe('MessageActions', () => {
   });
 
   describe('searchMessages', () => {
-    it('dispatches all the messages in successfull message load', () => {
+    it('dispatches SEARCHING_MESSAGES and MESSAGES_LOADED in successfull message load', () => {
       const messages = [
           {
             "id": 1,
@@ -103,13 +104,29 @@ describe('MessageActions', () => {
     });
 
 
-    it('dispatches an error in case of failure', () => {
+    it('dispatches SEARCHING_MESSAGES and MESSAGES_LOAD_ERROR in case of non-abort failure', () => {
       const error = new Error("failed request");
       fetch.mockReject(error);
 
       const expectedActions = [
         { type: SEARCHING_MESSAGES, payload: mockAbortObj },
         { type: MESSAGES_LOAD_ERROR, payload: error, error: true }
+      ];
+      const store = mockStore({})
+
+      return store.dispatch(actions.searchMessages("content", "blue")).then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+      });
+    });
+
+    it('dispatches SEARCHING_MESSAGES and MESSAGES_REQUEST_ABORT in case of abort failure ', () => {
+      const error = new Error("ugly error");
+      error.name = 'AbortError';
+      fetch.mockReject(error);
+
+      const expectedActions = [
+        { type: SEARCHING_MESSAGES, payload: mockAbortObj },
+        { type: MESSAGES_REQUEST_ABORT }
       ];
       const store = mockStore({})
 

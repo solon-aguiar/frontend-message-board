@@ -7,7 +7,8 @@ import {
   MESSAGES_LOAD_ERROR,
   CREATING_MESSAGE,
   MESSAGE_CREATION_ERROR,
-  MESSAGE_CREATED
+  MESSAGE_CREATED,
+  MESSAGES_REQUEST_ABORT
 } from '../constants/ActionTypes';
 
 function searchingMessagesAction(abort) {
@@ -35,6 +36,12 @@ function loadErrorAction(err) {
     type: MESSAGES_LOAD_ERROR,
     payload: err,
     error: true
+  };
+}
+
+function requestAbortedAction() {
+  return {
+    type: MESSAGES_REQUEST_ABORT
   };
 }
 
@@ -70,7 +77,13 @@ function searchMessages(content, color) {
     return Messages.get(content, color, abortController.signal)
       .then(response => response.json())
       .then(body => dispatch(loadedMessagesAction(body)))
-      .catch(err => dispatch(loadErrorAction(err)));
+      .catch(err => {
+        if (err.name === 'AbortError') {
+          dispatch(requestAbortedAction());
+        } else {
+          dispatch(loadErrorAction(err));
+        }
+      });
   };
 }
 
